@@ -43,7 +43,7 @@ app.get("/", (req, res) => {
   res.send("Rimbo Rent | Enso co-living API is ready to roll!");
 });
 
-app.use("/api/stripe-tenants", stripeUserRoutes);
+app.use("/api/tenancies", stripeUserRoutes);
 
 // Error handler
 app.use(notFound);
