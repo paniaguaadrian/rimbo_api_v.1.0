@@ -3,11 +3,10 @@ import express from "express";
 // Controllers
 import {
   registerTenant,
-  getEnsoTenants,
-} from "../controllers/stripeUserController.js";
+  getAllTenants,
+} from "../controllers/TenantUserController.js";
 
 const router = express.Router();
 
-router.route("/").post(registerTenant).get(getEnsoTenants);
-
+router.route("/").post(registerTenant).get(getAllTenants);
 export default router;

@@ -8,8 +8,13 @@ import morgan from "morgan";
 import cors from "cors";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
-// Routes imported
-import stripeUserRoutes from "./routes/stripeUserRoutes.js";
+// * Routes imported
+import TenantUserRoutes from "./routes/TenantUserRoutes.js";
+import PMUserRoutes from "./routes/PMUserRoutes.js";
+import AgentUserRoutes from "./routes/AgentUserRoutes.js";
+import PropertyRoutes from "./routes/PropertyRoutes.js";
+import LandlordUserRoutes from "./routes/LandlordUserRoutes.js";
+import TenancyRoutes from "./routes/TenancyRoutes.js";
 
 dotenv.config();
 connectDB();
@@ -17,7 +22,7 @@ const app = express();
 
 app.set("trust proxy", true);
 
-// Cors
+// * Cors
 app.use(cors());
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -40,16 +45,21 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.get("/", (req, res) => {
-  res.send("Rimbo Rent | Enso co-living API is ready to roll!");
+  res.send("Rimbo Rent API is Working...! ");
 });
 
-app.use("/api/tenancies", stripeUserRoutes);
+app.use("/api/tenants", TenantUserRoutes);
+app.use("/api/pms", PMUserRoutes);
+app.use("/api/agents", AgentUserRoutes);
+app.use("/api/properties", PropertyRoutes);
+app.use("/api/landlords", LandlordUserRoutes);
+app.use("/api/tenancies", TenancyRoutes);
 
-// Error handler
+// * Error handler
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT | 8080;
 
 app.listen(
   PORT,

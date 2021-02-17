@@ -1,2 +1,7 @@
 runtime: nodejs12
 service: rimbo-api
+# [START variables]
+env_variables:
+  NODE_ENV: "production"
+  REACT_APP_API_RIMBO: "https://rimbo-302814.ew.r.appspot.com/api/tenants"
+# [END variables]
