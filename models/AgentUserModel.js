@@ -7,6 +7,7 @@ const agentSchema = new Schema(
     agencyContactPerson: { type: String },
     agencyEmailPerson: { type: String },
     agencyPhonePerson: { type: String },
+    isAgentAccepted: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

@@ -19,6 +19,7 @@ const registerTenancy = async (req, res) => {
     agencyEmailPerson,
     agencyContactPerson,
     agencyPhonePerson,
+    isAgentAccepted,
     // property apartment
     rimboService,
     rentalDuration,
@@ -66,6 +67,7 @@ const registerTenancy = async (req, res) => {
       agencyEmailPerson,
       agencyContactPerson,
       agencyPhonePerson,
+      isAgentAccepted,
     });
   } else {
     agent = agent[0];
