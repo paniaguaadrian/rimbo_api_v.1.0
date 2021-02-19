@@ -9,17 +9,18 @@ import PM from "../models/PMUserModel.js";
 // * @route     POST /api/tenancies
 const registerTenancy = async (req, res) => {
   const {
-    // tenant
+    // tenant from Rj1
     tenantsName,
     tenantsEmail,
     tenantsPhone,
-    isAccepted,
+
     // agency agent
     agencyName,
     agencyEmailPerson,
     agencyContactPerson,
     agencyPhonePerson,
     isAgentAccepted,
+
     // property apartment
     rimboService,
     rentalDuration,
@@ -28,27 +29,50 @@ const registerTenancy = async (req, res) => {
     monthlyRent,
     ownerType,
     rentalAddress,
+
+    // Tenancy
+    rentAmount,
+    rentDuration,
+    RentStartDate,
+    RentEndDate,
+    product,
+
     // landlord
     landlordName,
     landlordEmail,
     landlordPhone,
+
     // property manager
     PMName,
     PMEmail,
     PMPhone,
   } = req.body;
 
-  let pm = await PM.find({ PMEmail });
-  if (pm.length === 0) {
-    pm = await PM.create({
-      PMName,
-      PMEmail,
-      PMPhone,
-    });
-  } else {
-    pm = pm[0];
-  }
+  // Create Tenant
+  const tenant = await Tenant.create({
+    tenantsName,
+    tenantsEmail,
+    tenantsPhone,
+  });
 
+  // let tenant = await Tenant.find({ tenantsEmail });
+  // if (tenant.length === 0) {
+  //   tenant = await Tenant.create({
+  //     tenantsName,
+  //     tenantsEmail,
+  //     tenantsPhone,
+  //   });
+  // } else {
+  //   tenant = await Tenant.updateOne({
+  //     tenantsName,
+  //     tenantsEmail,
+  //     tenantsPhone,
+  //     isAccepted,
+  //   });
+  //   tenant = tenant[0];
+  // }
+
+  // Create Landlord
   let landlord = await Landlord.find({ landlordEmail });
   if (landlord.length === 0) {
     landlord = await Landlord.create({
@@ -60,6 +84,19 @@ const registerTenancy = async (req, res) => {
     landlord = landlord[0];
   }
 
+  // Create PM
+  let pm = await PM.find({ PMName });
+  if (pm.length === 0) {
+    pm = await PM.create({
+      PMName,
+      PMEmail,
+      PMPhone,
+    });
+  } else {
+    pm = pm[0];
+  }
+
+  // Create Agent
   let agent = await Agent.find({ agencyEmailPerson });
   if (agent.length === 0) {
     agent = await Agent.create({
@@ -73,6 +110,7 @@ const registerTenancy = async (req, res) => {
     agent = agent[0];
   }
 
+  // Create Property
   // Buscarla por ID para que no se repita
   const property = await Property.create({
     rimboService,
@@ -84,32 +122,20 @@ const registerTenancy = async (req, res) => {
     rentalAddress,
   });
 
-  let tenant = await Tenant.find({ tenantsEmail });
-  if (tenant.length === 0) {
-    tenant = await Tenant.create({
-      tenantsName,
-      tenantsEmail,
-      tenantsPhone,
-      isAccepted,
-    });
-  } else {
-    // tenant = await Tenant.updateOne({
-    //   tenantsName,
-    //   tenantsEmail,
-    //   tenantsPhone,
-    //   isAccepted,
-    // });
-    tenant = tenant[0];
-  }
-
+  // Create Tenancy
   const tenancy = await Tenancy.create({
+    rentAmount,
+    rentDuration,
+    RentStartDate,
+    RentEndDate,
+    product,
+
     agent: agent._id,
     property: property._id,
     landlord: landlord._id,
     tenant: tenant._id,
     pm: pm._id,
   });
-
   res.json(tenancy);
 };
 
@@ -159,6 +185,7 @@ const registerTenancy = async (req, res) => {
 //   res.json(landlordsTenancies);
 // };
 
+// * @route     GET /api/tenancies
 const getAllTenancies = async (req, res) => {
   try {
     const tenancies = await Tenancy.find();

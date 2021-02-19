@@ -3,26 +3,59 @@ import Tenant from "../models/TenantUserModel.js";
 
 // * @route     POST /api/tenants
 const registerTenant = async (req, res) => {
-  // const { tenantsEmail } = req.body;
-
-  // const tenant = await Tenant.findOneAndUpdate(tenantsEmail, {
-  //   $set: { isAccepted: true },
-  // });
-
-  const { tenantsName, tenantsEmail, tenantsPhone, isAccepted } = req.body;
+  const {
+    tenantsName,
+    tenantsEmail,
+    tenantsPhone,
+    monthlyNetIncome,
+    jobType,
+    documentType,
+    documentNumber,
+    tenantsAddress,
+    tenantsZipCode,
+    documentImageFront,
+    documentImageBack,
+    documentConfirmAddress,
+    isAcceptedPrivacy,
+  } = req.body;
 
   let tenant = await Tenant.findOne({ tenantsEmail });
 
   if (tenant) {
-    await Tenant.findOneAndUpdate(tenantsEmail, {
-      $set: { isAccepted: true },
-    });
+    await Tenant.findOneAndUpdate(
+      tenantsName,
+      tenantsEmail,
+      tenantsPhone,
+      monthlyNetIncome,
+      jobType,
+      documentType,
+      documentNumber,
+      tenantsAddress,
+      tenantsZipCode,
+      documentImageFront,
+      documentImageBack,
+      documentConfirmAddress,
+      {
+        $set: {
+          isAcceptedPrivacy: true,
+        },
+      }
+    );
   } else {
     tenant = await Tenant.create({
       tenantsName,
       tenantsEmail,
       tenantsPhone,
-      isAccepted,
+      monthlyNetIncome,
+      jobType,
+      documentType,
+      documentNumber,
+      tenantsAddress,
+      tenantsZipCode,
+      documentImageFront,
+      documentImageBack,
+      documentConfirmAddress,
+      isAcceptedPrivacy,
     });
   }
 

@@ -10,6 +10,7 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 // * Routes imported
 import TenantUserRoutes from "./routes/TenantUserRoutes.js";
+import EnsoTenantUserRoutes from "./routes/EnsoTenantUserRoutes.js";
 import PMUserRoutes from "./routes/PMUserRoutes.js";
 import AgentUserRoutes from "./routes/AgentUserRoutes.js";
 import PropertyRoutes from "./routes/PropertyRoutes.js";
@@ -54,6 +55,7 @@ app.use("/api/agents", AgentUserRoutes);
 app.use("/api/properties", PropertyRoutes);
 app.use("/api/landlords", LandlordUserRoutes);
 app.use("/api/tenancies", TenancyRoutes);
+app.use("/api/enso/tenants", EnsoTenantUserRoutes);
 
 // * Error handler
 app.use(notFound);
