@@ -3,13 +3,20 @@ import Tenant from "../models/TenantUserModel.js";
 
 // * @route     POST /api/enso/tenants
 const registerEnsoTenant = async (req, res) => {
-  const { tenantsName, tenantsEmail, tenantsPhone, isAccepted } = req.body;
+  const {
+    tenantsName,
+    tenantsEmail,
+    tenantsPhone,
+    isAccepted,
+    propertyManagerName,
+  } = req.body;
 
   const user = await Tenant.create({
     tenantsName,
     tenantsEmail,
     tenantsPhone,
     isAccepted,
+    propertyManagerName,
   });
 
   if (user) {
@@ -19,6 +26,7 @@ const registerEnsoTenant = async (req, res) => {
       tenantsEmail: user.tenantsEmail,
       tenantsPhone: user.tenantsPhone,
       isAccepted: user.isAccepted,
+      propertyManagerName: user.propertyManagerName,
     });
   }
 };

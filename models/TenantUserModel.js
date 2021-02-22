@@ -8,6 +8,7 @@ const TenantSchema = new Schema(
     tenantsName: { type: String },
     tenantsEmail: { type: String },
     tenantsPhone: { type: String },
+    propertyManagerName: { type: String },
     tenantsCostumerId: { type: String },
     isAccepted: { type: Boolean, default: false }, // This is from Stripe when he pays
 
