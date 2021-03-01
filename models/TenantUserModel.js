@@ -11,6 +11,8 @@ const TenantSchema = new Schema(
     propertyManagerName: { type: String },
     tenantsCostumerId: { type: String },
     isAccepted: { type: Boolean, default: false }, // This is from Stripe when he pays
+    randomID: { type: String }, //random if from form client side with nanoid
+    tenantRimboService: { type: String },
 
     // * RJ2
     monthlyNetIncome: { type: Number },

@@ -6,13 +6,17 @@ import Property from "../models/PropertyModel.js";
 import Tenancy from "../models/TenancyModel.js";
 import PM from "../models/PMUserModel.js";
 
-// * @route     POST /api/tenancies
+// * @desc      Route for RJ1 form to create a new Tenancy
+// ! @route     POST /api/tenancies
 const registerTenancy = async (req, res) => {
   const {
     // tenant from Rj1
     tenantsName,
     tenantsEmail,
     tenantsPhone,
+    propertyManagerName,
+    randomID,
+    tenantRimboService,
 
     // agency agent
     agencyName,
@@ -36,6 +40,7 @@ const registerTenancy = async (req, res) => {
     RentStartDate,
     RentEndDate,
     product,
+    tenancyID,
 
     // landlord
     landlordName,
@@ -53,24 +58,10 @@ const registerTenancy = async (req, res) => {
     tenantsName,
     tenantsEmail,
     tenantsPhone,
+    propertyManagerName,
+    randomID,
+    tenantRimboService,
   });
-
-  // let tenant = await Tenant.find({ tenantsEmail });
-  // if (tenant.length === 0) {
-  //   tenant = await Tenant.create({
-  //     tenantsName,
-  //     tenantsEmail,
-  //     tenantsPhone,
-  //   });
-  // } else {
-  //   tenant = await Tenant.updateOne({
-  //     tenantsName,
-  //     tenantsEmail,
-  //     tenantsPhone,
-  //     isAccepted,
-  //   });
-  //   tenant = tenant[0];
-  // }
 
   // Create Landlord
   let landlord = await Landlord.find({ landlordEmail });
@@ -129,6 +120,7 @@ const registerTenancy = async (req, res) => {
     RentStartDate,
     RentEndDate,
     product,
+    tenancyID,
 
     agent: agent._id,
     property: property._id,
@@ -139,60 +131,38 @@ const registerTenancy = async (req, res) => {
   res.json(tenancy);
 };
 
-// * @route     GET /api/tenancies
-// const getTenancy = async (req, res) => {
-//   const { landlordEmail } = req.body;
-//   // buscar tenancies
-
-//   // ! una manera
-//   // const allTenancies = await Tenancy.find()
-//   //   .populate("landlord")
-//   //   .populate("tenant");
-//   // console.log(allTenancies);
-//   // const landlordsTenancies = [];
-//   // allTenancies.map((tenancy) => {
-//   //   tenancy.landlord.forEach((landlord) => {
-//   //     if (landlord.landlordEmail === landlordEmail) {
-//   //       landlordsTenancies.push(tenancy);
-//   //     }
-//   //   });
-//   // });
-//   // console.log("object");
-
-//   // ! segunda manera
-//   const thisLandlord = await Landlord.findOne({ landlordEmail });
-
-//   // console.log(thisLandlord);
-
-//   const allTenancies = await Tenancy.find()
-//     .populate("tenant")
-//     .populate("agent")
-//     .populate("property")
-//     .populate("pm");
-
-//   const landlordsTenancies = [];
-
-//   allTenancies.map((tenancy) => {
-//     tenancy.landlord.forEach((landlord) => {
-//       if (landlord == thisLandlord.id) {
-//         landlordsTenancies.push(tenancy);
-//       }
-//     });
-//   });
-//   // ! How to access to this data...
-//   // console.log("This is property");
-//   // console.log(landlordsTenancies[0].property[0]);
-//   res.json(landlordsTenancies);
-// };
-
-// * @route     GET /api/tenancies
+// * @desc      Route to get all tenancies on th DB
+// ! @route     GET /api/tenancies
 const getAllTenancies = async (req, res) => {
   try {
-    const tenancies = await Tenancy.find();
-    res.json(tenancies);
+    const allTenancies = await Tenancy.find()
+      .populate("landlord")
+      .populate("tenant")
+      .populate("property")
+      .populate("pm")
+      .populate("agent");
+    res.json(allTenancies);
   } catch (error) {
     console.log(error);
   }
 };
 
-export { registerTenancy, getAllTenancies };
+// * @desc      Route to get a single Tenancy by tenancyID
+// ! @route     GET /api/tenancy/:tenancyID
+const getSingleTenancy = async (req, res) => {
+  try {
+    const tenancyID = req.originalUrl.slice(13);
+
+    const thisTenancy = await Tenancy.findOne({ tenancyID })
+      .populate("landlord")
+      .populate("tenant")
+      .populate("agent")
+      .populate("pm")
+      .populate("property");
+    res.status(200).json(thisTenancy);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { registerTenancy, getAllTenancies, getSingleTenancy };

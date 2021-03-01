@@ -9,13 +9,25 @@ import cors from "cors";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 // * Routes imported
-import TenantUserRoutes from "./routes/TenantUserRoutes.js";
-import EnsoTenantUserRoutes from "./routes/EnsoTenantUserRoutes.js";
+// Tenants
+import TenantUpdateUserRoutes from "./routes/TenantUpdateUserRoutes.js";
+import TenantStripeUserRoutes from "./routes/TenantStripeUserRoutes.js";
+import TenantGetAllUserRoutes from "./routes/TenantGetAllUserRoutes.js";
+import TenantGetOneUserRoutes from "./routes/TenantGetOneUserRoutes.js";
+
+// Tenancy
+import TenancyRoutes from "./routes/TenancyRoutes.js";
+import TenancyGetOneRoutes from "./routes/TenancyGetOneRoutes.js";
+
+// Rest
 import PMUserRoutes from "./routes/PMUserRoutes.js";
 import AgentUserRoutes from "./routes/AgentUserRoutes.js";
 import PropertyRoutes from "./routes/PropertyRoutes.js";
 import LandlordUserRoutes from "./routes/LandlordUserRoutes.js";
-import TenancyRoutes from "./routes/TenancyRoutes.js";
+
+// Enso - Product - Stripe
+import EnsoTenantUserRoutes from "./routes/EnsoTenantUserRoutes.js";
+// * End routes //////////////////////////////////////
 
 dotenv.config();
 connectDB();
@@ -49,12 +61,30 @@ app.get("/", (req, res) => {
   res.send("Rimbo Rent API is Working...! ");
 });
 
-app.use("/api/tenants", TenantUserRoutes);
+// * Get Tenants routes
+app.use("/api/tenants", TenantGetAllUserRoutes);
+app.use("/api/tenant/:randomID", TenantGetOneUserRoutes);
+
+// * Register new Tenant (RJ2) routes
+app.use("/api/tenants/:randomID", TenantUpdateUserRoutes);
+
+// * Register new Tenant (RJ3) routes
+app.use("/api/tenants/stripe/:randomID", TenantStripeUserRoutes);
+
+// *  Tenancy (RJ1) routes
+// ! post and get requests
+app.use("/api/tenancies", TenancyRoutes);
+
+// * Get One Tenancy Route (RJ2)
+app.use("/api/tenancy/:tenancyID", TenancyGetOneRoutes);
+
+// * Get diffeerent information routes
 app.use("/api/pms", PMUserRoutes);
 app.use("/api/agents", AgentUserRoutes);
 app.use("/api/properties", PropertyRoutes);
 app.use("/api/landlords", LandlordUserRoutes);
-app.use("/api/tenancies", TenancyRoutes);
+
+// * Enso - Product - Stripe
 app.use("/api/enso/tenants", EnsoTenantUserRoutes);
 
 // * Error handler

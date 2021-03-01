@@ -8,12 +8,13 @@ const tenancySchema = new Schema(
     rentDuration: { type: String },
     RentEndDate: { type: Date },
     product: { type: String },
+    tenancyID: { type: String },
 
-    pm: [{ type: Schema.Types.ObjectId, ref: "PM" }],
-    property: [{ type: Schema.Types.ObjectId, ref: "Property" }],
-    landlord: [{ type: Schema.Types.ObjectId, ref: "Landlord" }],
-    tenant: [{ type: Schema.Types.ObjectId, ref: "Tenant" }],
-    agent: [{ type: Schema.Types.ObjectId, ref: "Agent" }],
+    pm: { type: Schema.Types.ObjectId, ref: "PM" },
+    property: { type: Schema.Types.ObjectId, ref: "Property" },
+    landlord: { type: Schema.Types.ObjectId, ref: "Landlord" },
+    tenant: { type: Schema.Types.ObjectId, ref: "Tenant" },
+    agent: { type: Schema.Types.ObjectId, ref: "Agent" },
   },
   { timestamps: true }
 );
