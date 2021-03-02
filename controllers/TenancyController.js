@@ -6,6 +6,22 @@ import Property from "../models/PropertyModel.js";
 import Tenancy from "../models/TenancyModel.js";
 import PM from "../models/PMUserModel.js";
 
+// * @desc      Route to get all tenancies on the DB
+// ! @route     GET /api/tenancies
+const getAllTenancies = async (req, res) => {
+  try {
+    const allTenancies = await Tenancy.find()
+      .populate("landlord")
+      .populate("tenant")
+      .populate("property")
+      .populate("pm")
+      .populate("agent");
+    res.json(allTenancies);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // * @desc      Route for RJ1 form to create a new Tenancy
 // ! @route     POST /api/tenancies
 const registerTenancy = async (req, res) => {
@@ -131,27 +147,11 @@ const registerTenancy = async (req, res) => {
   res.json(tenancy);
 };
 
-// * @desc      Route to get all tenancies on th DB
-// ! @route     GET /api/tenancies
-const getAllTenancies = async (req, res) => {
-  try {
-    const allTenancies = await Tenancy.find()
-      .populate("landlord")
-      .populate("tenant")
-      .populate("property")
-      .populate("pm")
-      .populate("agent");
-    res.json(allTenancies);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-// * @desc      Route to get a single Tenancy by tenancyID
-// ! @route     GET /api/tenancy/:tenancyID
+// * @desc      Route to get a single Tenancy by tenancyID for RJ2
+// ! @route     GET /api/tenancies/tenancy/:tenancyID
 const getSingleTenancy = async (req, res) => {
   try {
-    const tenancyID = req.originalUrl.slice(13);
+    const tenancyID = req.originalUrl.slice(23);
 
     const thisTenancy = await Tenancy.findOne({ tenancyID })
       .populate("landlord")
