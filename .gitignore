@@ -1,6 +1,6 @@
 ### dotenv ###
 .env
-
+key.json
 ### macOS ###
 # General
 .DS_Store
