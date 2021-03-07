@@ -9,7 +9,6 @@ import cors from "cors";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 // * Routes imported
-
 import TenantUserRoutes from "./routes/TenantUserRoutes.js";
 import TenancyRoutes from "./routes/TenancyRoutes.js";
 import PMUserRoutes from "./routes/PMUserRoutes.js";
@@ -60,7 +59,7 @@ app.use("/api/landlords", LandlordUserRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT | 8080;
+const PORT = process.env.PORT | 8081;
 
 app.listen(
   PORT,
