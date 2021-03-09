@@ -6,13 +6,11 @@ const TenantSchema = new Schema(
     tenantsName: { type: String },
     tenantsEmail: { type: String },
     tenantsPhone: { type: String },
-    propertyManagerName: { type: String },
     tenantsCostumerId: { type: String },
     isAccepted: { type: Boolean, default: false },
     isRimboAccepted: { type: Boolean, default: false },
     isPMAccepted: { type: Boolean, default: false },
     randomID: { type: String },
-    tenantRimboService: { type: String },
     monthlyNetIncome: { type: Number },
     jobType: { type: String },
     documentType: { type: String },
@@ -22,8 +20,7 @@ const TenantSchema = new Schema(
     documentImageFront: { type: String },
     documentImageBack: { type: String },
     documentConfirmAddress: { type: String },
-    isAcceptedPrivacy: { type: Boolean },
-    startTenancyDateT: { type: Date }, // ! How to store Dates?
+    isAcceptedGC: { type: Boolean },
   },
   { timestamps: true }
 );

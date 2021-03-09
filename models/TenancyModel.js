@@ -9,6 +9,7 @@ const tenancySchema = new Schema(
     rentEndDate: { type: Date },
     product: { type: String },
     tenancyID: { type: String },
+    pmAnex: { type: String },
 
     pm: { type: Schema.Types.ObjectId, ref: "PM" },
     property: { type: Schema.Types.ObjectId, ref: "Property" },

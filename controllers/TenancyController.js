@@ -30,9 +30,7 @@ const registerTenancy = async (req, res) => {
     tenantsName,
     tenantsEmail,
     tenantsPhone,
-    propertyManagerName,
     randomID,
-    tenantRimboService,
 
     // agency agent
     agencyName,
@@ -42,11 +40,8 @@ const registerTenancy = async (req, res) => {
     isAgentAccepted,
 
     // property apartment
-    rimboService,
-    rentalDuration,
     rentalCity,
     rentalPostalCode,
-    monthlyRent,
     ownerType,
     rentalAddress,
 
@@ -74,9 +69,7 @@ const registerTenancy = async (req, res) => {
     tenantsName,
     tenantsEmail,
     tenantsPhone,
-    propertyManagerName,
     randomID,
-    tenantRimboService,
   });
 
   // Create Landlord
@@ -120,11 +113,8 @@ const registerTenancy = async (req, res) => {
   // Create Property
   // Buscarla por ID para que no se repita
   const property = await Property.create({
-    rimboService,
-    rentalDuration,
     rentalCity,
     rentalPostalCode,
-    monthlyRent,
     ownerType,
     rentalAddress,
   });
@@ -168,64 +158,17 @@ const getSingleTenancy = async (req, res) => {
 // * @desc      Route to upddate a single Tenancy by tenancyID for RJS
 // ! @route     GET /api/tenancies/tenancy/:tenancyID
 const updateSingleTenancy = async (req, res) => {
-  let {
-    // Agent
-    startTenancyDateA,
-    // Tenant
-    startTenancyDateT,
-    // PM
-    PMAnex,
-    // Tenancy
-    rentStartDate,
-    // Random
-    tenancyID,
-  } = req.body;
+  let { rentStartDate, pmAnex, tenancyID } = req.body;
 
   let thisTenancy = await Tenancy.findOneAndUpdate(
     { tenancyID },
-    { rentStartDate }
+    { rentStartDate, pmAnex }
   )
     .populate("landlord")
     .populate("tenant")
     .populate("agent")
     .populate("pm")
     .populate("property");
-
-  const agent = thisTenancy.agent;
-  const tenant = thisTenancy.tenant;
-  const pm = thisTenancy.pm;
-
-  const { agencyEmailPerson } = agent;
-  const { PMName } = pm;
-  const { randomID } = tenant;
-
-  if (thisTenancy.agent.agencyEmailPerson === agent.agencyEmailPerson) {
-    await Agent.findOneAndUpdate(
-      { agencyEmailPerson },
-      {
-        startTenancyDateA,
-      }
-    );
-  }
-
-  if (thisTenancy.pm.PMName === pm.PMName) {
-    await PM.findOneAndUpdate(
-      { PMName },
-      {
-        PMAnex,
-      }
-    );
-  }
-
-  if (thisTenancy.tenant.randomID === tenant.randomID) {
-    await Tenant.findOneAndUpdate(
-      { randomID },
-      {
-        startTenancyDateT,
-      }
-    );
-  }
-
   res.status(201).json(thisTenancy);
 };
 
