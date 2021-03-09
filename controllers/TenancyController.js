@@ -158,11 +158,13 @@ const getSingleTenancy = async (req, res) => {
 // * @desc      Route to upddate a single Tenancy by tenancyID for RJS
 // ! @route     GET /api/tenancies/tenancy/:tenancyID
 const updateSingleTenancy = async (req, res) => {
-  let { rentStartDate, pmAnex, tenancyID } = req.body;
+  let { date, tenancyID } = req.body;
+  const pmAnex = req.files[0];
+  const pmAnexUrl = pmAnex.linkUrl;
 
   let thisTenancy = await Tenancy.findOneAndUpdate(
     { tenancyID },
-    { rentStartDate, pmAnex }
+    { rentStartDate: date, pmAnex: pmAnexUrl }
   )
     .populate("landlord")
     .populate("tenant")
