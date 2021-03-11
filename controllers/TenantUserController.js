@@ -112,13 +112,20 @@ const registerTenantRJ3 = async (req, res) => {
 // * @desc      Route to register a new tenant from enso product/stripe
 // ! @route     POST /api/tenants/enso
 const registerEnsoTenants = async (req, res) => {
-  const { tenantsName, tenantsEmail, tenantsPhone, isAccepted } = req.body;
+  const {
+    tenantsName,
+    tenantsEmail,
+    tenantsPhone,
+    isAccepted,
+    randomID,
+  } = req.body;
 
   const user = await Tenant.create({
     tenantsName,
     tenantsEmail,
     tenantsPhone,
     isAccepted,
+    randomID,
   });
 
   if (user) {
@@ -128,6 +135,7 @@ const registerEnsoTenants = async (req, res) => {
       tenantsEmail: user.tenantsEmail,
       tenantsPhone: user.tenantsPhone,
       isAccepted: user.isAccepted,
+      randomID: user.randomID,
     });
   }
 };

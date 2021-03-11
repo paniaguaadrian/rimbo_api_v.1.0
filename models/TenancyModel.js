@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const tenancySchema = new Schema(
   {
     rentAmount: { type: String },
+    rentStart: { type: Boolean, default: false },
     rentStartDate: { type: Date },
     rentDuration: { type: String },
     rentEndDate: { type: Date },

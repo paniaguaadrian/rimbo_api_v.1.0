@@ -175,9 +175,19 @@ const updateSingleTenancy = async (req, res) => {
   res.status(201).json(thisTenancy);
 };
 
+// * @desc      Route to accept a tenancy by rimbo after RJ18 email
+// ! @route     POST /api/tenancies/tenancy/:tenancyID/rimbo/start-service
+const acceptTenancyRimbo = async (req, res) => {
+  const { tenancyID, rentStart } = req.body;
+
+  let tenancy = await Tenancy.findOneAndUpdate({ tenancyID }, { rentStart });
+  res.status(200).json(tenancy);
+};
+
 export {
   registerTenancy,
   getAllTenancies,
   getSingleTenancy,
   updateSingleTenancy,
+  acceptTenancyRimbo,
 };

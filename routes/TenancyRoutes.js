@@ -10,6 +10,7 @@ import {
   getAllTenancies,
   getSingleTenancy,
   updateSingleTenancy,
+  acceptTenancyRimbo,
 } from "../controllers/TenancyController.js";
 
 const __dirname = path.resolve();
@@ -33,4 +34,7 @@ router
   .route("/tenancy/:tenancyID")
   .post(upload.any(), updateSingleTenancy)
   .get(getSingleTenancy);
+router
+  .route("/tenancy/:tenancyID/rimbo/start-service")
+  .post(acceptTenancyRimbo);
 export default router;
