@@ -3,8 +3,18 @@ import path from "path";
 import multerGCS from "multer-cloud-storage";
 import { v4 } from "uuid";
 import multer from "multer";
+
+// Controllers
+import {
+  registerTenancy,
+  getAllTenancies,
+  getSingleTenancy,
+  updateSingleTenancy,
+} from "../controllers/TenancyController.js";
+
 const __dirname = path.resolve();
-const upload = multer({
+
+export const upload = multer({
   storage: multerGCS.storageEngine({
     bucket: "rimbo-files",
     keyFilename: path.join(__dirname, "./config/key.json"),
@@ -16,20 +26,11 @@ const upload = multer({
   }),
 });
 
-// Controllers
-import {
-  registerTenancy,
-  getAllTenancies,
-  getSingleTenancy,
-  updateSingleTenancy,
-} from "../controllers/TenancyController.js";
-
 const router = express.Router();
 
 router.route("/").post(registerTenancy).get(getAllTenancies);
 router
   .route("/tenancy/:tenancyID")
   .post(upload.any(), updateSingleTenancy)
-  .post(updateSingleTenancy)
   .get(getSingleTenancy);
 export default router;

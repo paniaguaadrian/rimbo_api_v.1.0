@@ -1,4 +1,3 @@
-// Models
 import Tenant from "../models/TenantUserModel.js";
 import Agent from "../models/AgentUserModel.js";
 import Landlord from "../models/LandlordUserModel.js";
@@ -156,9 +155,10 @@ const getSingleTenancy = async (req, res) => {
 };
 
 // * @desc      Route to upddate a single Tenancy by tenancyID for RJS
-// ! @route     GET /api/tenancies/tenancy/:tenancyID
+// ! @route     POST /api/tenancies/tenancy/:tenancyID
 const updateSingleTenancy = async (req, res) => {
   let { date, tenancyID } = req.body;
+
   const pmAnex = req.files[0];
   const pmAnexUrl = pmAnex.linkUrl;
 
@@ -171,6 +171,7 @@ const updateSingleTenancy = async (req, res) => {
     .populate("agent")
     .populate("pm")
     .populate("property");
+
   res.status(201).json(thisTenancy);
 };
 

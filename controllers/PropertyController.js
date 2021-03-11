@@ -1,4 +1,3 @@
-// Model
 import Property from "../models/PropertyModel.js";
 
 // * @route     POST /api/properties

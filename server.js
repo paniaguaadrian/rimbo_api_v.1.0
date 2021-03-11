@@ -9,8 +9,8 @@ import cors from "cors";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 // * Routes imported
-import TenantUserRoutes from "./routes/TenantUserRoutes.js";
 import TenancyRoutes from "./routes/TenancyRoutes.js";
+import TenantUserRoutes from "./routes/TenantUserRoutes.js";
 import PMUserRoutes from "./routes/PMUserRoutes.js";
 import AgentUserRoutes from "./routes/AgentUserRoutes.js";
 import PropertyRoutes from "./routes/PropertyRoutes.js";

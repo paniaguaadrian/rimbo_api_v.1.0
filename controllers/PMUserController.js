@@ -1,4 +1,3 @@
-// Model
 import PM from "../models/PMUserModel.js";
 
 // * @route     POST /api/pms

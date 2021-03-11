@@ -1,4 +1,3 @@
-// Model
 import Landlord from "../models/LandlordUserModel.js";
 
 // * @route     POST /api/landlords
