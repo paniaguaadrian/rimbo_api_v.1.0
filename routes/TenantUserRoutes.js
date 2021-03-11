@@ -25,7 +25,7 @@ const upload = multer({
     keyFilename: path.join(__dirname, "./config/key.json"),
     projectId: "rimbo-302814",
     filename: (req, file, cb) => {
-      const name = `${v4()}-${file.originalname}`;
+      const name = `${v4()}-${file.originalname.replace(/ /g, "_")}`;
       cb(null, name);
     },
   }),
