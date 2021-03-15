@@ -11,6 +11,8 @@ import {
   getSingleTenancy,
   updateSingleTenancy,
   acceptTenancyRimbo,
+  registerBadiTenancy,
+  updateBadiSingleTenancy,
 } from "../controllers/TenancyController.js";
 
 const __dirname = path.resolve();
@@ -29,6 +31,7 @@ export const upload = multer({
 
 const router = express.Router();
 
+// Regular FlowRoutes
 router.route("/").post(registerTenancy).get(getAllTenancies);
 router
   .route("/tenancy/:tenancyID")
@@ -37,4 +40,8 @@ router
 router
   .route("/tenancy/:tenancyID/rimbo/start-service")
   .post(acceptTenancyRimbo);
+
+// Badi Flow Routes
+router.route("/badi").post(registerBadiTenancy);
+router.route("/tenancy/badi/:tenancyID").post(updateBadiSingleTenancy);
 export default router;

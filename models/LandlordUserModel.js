@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 const landlordSchema = new Schema(
   {
-    landlordName: { type: String, required: true },
-    landlordEmail: { type: String, required: true },
-    landlordPhone: { type: Number, required: true },
+    landlordName: { type: String },
+    landlordEmail: { type: String },
+    landlordPhone: { type: Number },
   },
   { timestamps: true }
 );
