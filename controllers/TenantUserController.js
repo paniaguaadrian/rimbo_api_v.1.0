@@ -95,6 +95,15 @@ const acceptTenantPM = async (req, res) => {
   res.status(200).json(tenant);
 };
 
+// * @desc      Route to accept a tenant Card by Rimbo after RJ2, on RJ15 email
+// ! @route     POST /api/tenants/tenant/:randomID/card/approved
+const acceptTenantCard = async (req, res) => {
+  const { randomID, isCardAccepted } = req.body;
+
+  let tenant = await Tenant.findOneAndUpdate({ randomID }, { isCardAccepted });
+  res.status(200).json(tenant);
+};
+
 // * @desc      Route to register new tenant debit card details at RJ3
 // ! @route     POST /api/tenants/stripe/:randomID
 const registerTenantRJ3 = async (req, res) => {
@@ -161,4 +170,5 @@ export {
   registerEnsoTenants,
   getAllEnsoTenants,
   acceptTenantPM,
+  acceptTenantCard,
 };

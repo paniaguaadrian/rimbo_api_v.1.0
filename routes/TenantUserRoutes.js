@@ -15,6 +15,7 @@ import {
   registerEnsoTenants,
   getAllEnsoTenants,
   acceptTenantPM,
+  acceptTenantCard,
 } from "../controllers/TenantUserController.js";
 
 const __dirname = path.resolve();
@@ -41,8 +42,10 @@ router
   .post(upload.any(), registerTenantRJ2Upload);
 router.route("/tenant/:randomID/approved").post(acceptTenantRimbo);
 router.route("/tenant/:randomID/pm/approved").post(acceptTenantPM);
+router.route("/tenant/:randomID/card/approved").post(acceptTenantCard);
+router.route("/stripe/:randomID").post(registerTenantRJ3);
 
 // Enso Product
-router.route("/stripe/:randomID").post(registerTenantRJ3);
 router.route("/enso").get(getAllEnsoTenants).post(registerEnsoTenants);
+
 export default router;

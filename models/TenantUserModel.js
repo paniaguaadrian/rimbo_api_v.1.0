@@ -10,6 +10,7 @@ const TenantSchema = new Schema(
     isAccepted: { type: Boolean, default: false },
     isRimboAccepted: { type: Boolean, default: false },
     isPMAccepted: { type: Boolean, default: false },
+    isCardAccepted: { type: Boolean, default: false },
     randomID: { type: String },
     monthlyNetIncome: { type: Number },
     jobType: { type: String },
