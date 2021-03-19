@@ -20,7 +20,8 @@ const TenantSchema = new Schema(
     tenantsZipCode: { type: Number },
     documentImageFront: { type: String },
     documentImageBack: { type: String },
-    documentConfirmAddress: { type: String },
+    lastPayslip: { type: String },
+    previousPayslip: { type: String },
     isAcceptedGC: { type: Boolean },
   },
   { timestamps: true }
