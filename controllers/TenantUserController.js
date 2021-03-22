@@ -34,7 +34,7 @@ const registerTenantRJ2 = async (req, res) => {
     documentNumber,
     tenantsAddress,
     tenantsZipCode,
-    isAcceptedPrivacy,
+    isAcceptedGC,
     randomID,
   } = req.body;
 
@@ -47,7 +47,7 @@ const registerTenantRJ2 = async (req, res) => {
       documentNumber,
       tenantsAddress,
       tenantsZipCode,
-      isAcceptedPrivacy,
+      isAcceptedGC,
     }
   );
   res.status(200).json(tenant);
@@ -128,6 +128,7 @@ const registerEnsoTenants = async (req, res) => {
     tenantsName,
     tenantsEmail,
     tenantsPhone,
+    propertyManagerName,
     isAccepted,
     randomID,
   } = req.body;
@@ -136,6 +137,7 @@ const registerEnsoTenants = async (req, res) => {
     tenantsName,
     tenantsEmail,
     tenantsPhone,
+    propertyManagerName,
     isAccepted,
     randomID,
   });
@@ -146,6 +148,7 @@ const registerEnsoTenants = async (req, res) => {
       tenantsName: user.tenantsName,
       tenantsEmail: user.tenantsEmail,
       tenantsPhone: user.tenantsPhone,
+      propertyManagerName: user.propertyManagerName,
       isAccepted: user.isAccepted,
       randomID: user.randomID,
     });

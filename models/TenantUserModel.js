@@ -6,7 +6,7 @@ const TenantSchema = new Schema(
     tenantsName: { type: String },
     tenantsEmail: { type: String },
     tenantsPhone: { type: String },
-    tenantsCostumerId: { type: String },
+    propertyManagerName: { type: String },
     isAccepted: { type: Boolean, default: false },
     isRimboAccepted: { type: Boolean, default: false },
     isPMAccepted: { type: Boolean, default: false },
@@ -22,7 +22,7 @@ const TenantSchema = new Schema(
     documentImageBack: { type: String },
     lastPayslip: { type: String },
     previousPayslip: { type: String },
-    isAcceptedGC: { type: Boolean },
+    isAcceptedGC: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
