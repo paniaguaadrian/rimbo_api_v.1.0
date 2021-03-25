@@ -10,6 +10,8 @@ const registerProperty = async (req, res) => {
     monthlyRent,
     ownerType,
     rentalAddress,
+    fullRentalAddress,
+    rentalAddressSecond,
   } = req.body;
 
   const property = await Property.create({
@@ -20,6 +22,8 @@ const registerProperty = async (req, res) => {
     monthlyRent,
     ownerType,
     rentalAddress,
+    fullRentalAddress,
+    rentalAddressSecond,
   });
 
   if (property) {
@@ -32,6 +36,8 @@ const registerProperty = async (req, res) => {
       monthlyRent: property.monthlyRent,
       ownerType: property.ownerType,
       rentalAddress: property.rentalAddress,
+      rentalAddressSecond: property.rentalAddressSecond,
+      fullRentalAddress: property.fullRentalAddress,
     });
   }
 };

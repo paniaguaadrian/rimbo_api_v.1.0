@@ -39,10 +39,12 @@ const registerTenancy = async (req, res) => {
     isAgentAccepted,
 
     // property apartment
+    fullRentalAddress,
+    rentalAddress,
+    rentalAddressSecond,
     rentalCity,
     rentalPostalCode,
     ownerType,
-    rentalAddress,
 
     // Tenancy
     rentAmount,
@@ -112,10 +114,12 @@ const registerTenancy = async (req, res) => {
   // Create Property
   // Buscarla por ID para que no se repita
   const property = await Property.create({
+    fullRentalAddress,
+    rentalAddress,
+    rentalAddressSecond,
     rentalCity,
     rentalPostalCode,
     ownerType,
-    rentalAddress,
   });
 
   // Create Tenancy
@@ -158,6 +162,8 @@ const registerBadiTenancy = async (req, res) => {
     rentalPostalCode,
     ownerType,
     rentalAddress,
+    fullRentalAddress,
+    rentalAddressSecond,
 
     // Tenancy
     rentAmount,
@@ -210,10 +216,12 @@ const registerBadiTenancy = async (req, res) => {
   // Create Property
   // Buscarla por ID para que no se repita
   const property = await Property.create({
+    fullRentalAddress,
+    rentalAddress,
+    rentalAddressSecond,
     rentalCity,
     rentalPostalCode,
     ownerType,
-    rentalAddress,
   });
 
   // Create Tenancy
