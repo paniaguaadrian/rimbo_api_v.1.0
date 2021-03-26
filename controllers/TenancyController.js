@@ -21,6 +21,7 @@ const getAllTenancies = async (req, res) => {
   }
 };
 
+// ? Regular Flow
 // * @desc      Route for RJ1 form to create a new Tenancy
 // ! @route     POST /api/tenancies
 const registerTenancy = async (req, res) => {
@@ -140,6 +141,57 @@ const registerTenancy = async (req, res) => {
   res.json(tenancy);
 };
 
+// ? Regular Flow
+// * @desc      Route to get a single Tenancy by tenancyID for RJ2
+// ! @route     GET /api/tenancies/tenancy/:tenancyID
+const getSingleTenancy = async (req, res) => {
+  try {
+    const tenancyID = req.originalUrl.slice(23);
+
+    const thisTenancy = await Tenancy.findOne({ tenancyID })
+      .populate("landlord")
+      .populate("tenant")
+      .populate("agent")
+      .populate("pm")
+      .populate("property");
+    res.status(200).json(thisTenancy);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// ? Regular Flow
+// * @desc      Route to upddate a single Tenancy by tenancyID for RJS (Regular Flow)
+// ! @route     POST /api/tenancies/tenancy/:tenancyID
+const updateSingleTenancy = async (req, res) => {
+  let { date, tenancyID } = req.body;
+
+  const pmAnex = req.files[0];
+  const pmAnexUrl = pmAnex.linkUrl;
+  let thisTenancy = await Tenancy.findOneAndUpdate(
+    { tenancyID },
+    { rentStartDate: date, pmAnex: pmAnexUrl }
+  )
+    .populate("landlord")
+    .populate("tenant")
+    .populate("agent")
+    .populate("pm")
+    .populate("property");
+
+  res.status(201).json(thisTenancy);
+};
+
+// ? Regular Flow
+// * @desc      Route to accept a tenancy by rimbo after RJ18 email
+// ! @route     POST /api/tenancies/tenancy/:tenancyID/rimbo/start-service
+const acceptTenancyRimbo = async (req, res) => {
+  const { tenancyID, rentStart } = req.body;
+
+  let tenancy = await Tenancy.findOneAndUpdate({ tenancyID }, { rentStart });
+  res.status(200).json(tenancy);
+};
+
+// ? Badi Flow
 // * @desc      Route for RJ1 form to create a new Tenancy FOR BADI
 // ! @route     POST /api/tenancies/badi
 const registerBadiTenancy = async (req, res) => {
@@ -241,6 +293,7 @@ const registerBadiTenancy = async (req, res) => {
   res.json(tenancy);
 };
 
+// ? Badi Flow
 // * @desc      Route to update a single Tenancy by tenancyID for RJS (Badi Flow)
 // ! @route     POST /api/tenancies/tenancy/badi/:tenancyID
 const updateBadiSingleTenancy = async (req, res) => {
@@ -270,59 +323,90 @@ const updateBadiSingleTenancy = async (req, res) => {
   res.json(tenancy);
 };
 
-// * @desc      Route to get a single Tenancy by tenancyID for RJ2
-// ! @route     GET /api/tenancies/tenancy/:tenancyID
-const getSingleTenancy = async (req, res) => {
-  try {
-    const tenancyID = req.originalUrl.slice(23);
+// ? StarCity Flow
+// * @desc      Route to create a new Tenancy without files attached
+// ! @route     POST /api/tenancies/starcity
+const registerStarcityTenancy = async (req, res) => {
+  const {
+    // Tenant
+    tenantsName,
+    tenantsEmail,
+    tenantsPhone,
+    documentType,
+    documentNumber,
+    // documentImageFront,
+    // documentImageBack,
+    monthlyNetIncome,
+    jobType,
+    randomID,
 
-    const thisTenancy = await Tenancy.findOne({ tenancyID })
-      .populate("landlord")
-      .populate("tenant")
-      .populate("agent")
-      .populate("pm")
-      .populate("property");
-    res.status(200).json(thisTenancy);
-  } catch (error) {
-    console.log(error);
-  }
-};
+    // Agency
+    agencyName,
+    isAgentAccepted,
 
-// * @desc      Route to upddate a single Tenancy by tenancyID for RJS (Regular Flow)
-// ! @route     POST /api/tenancies/tenancy/:tenancyID
-const updateSingleTenancy = async (req, res) => {
-  let { date, tenancyID } = req.body;
+    // Property
+    building,
+    room,
 
-  const pmAnex = req.files[0];
-  const pmAnexUrl = pmAnex.linkUrl;
-  let thisTenancy = await Tenancy.findOneAndUpdate(
-    { tenancyID },
-    { rentStartDate: date, pmAnex: pmAnexUrl }
-  )
-    .populate("landlord")
-    .populate("tenant")
-    .populate("agent")
-    .populate("pm")
-    .populate("property");
+    // Tenancy
+    rentAmount,
+    acceptanceCriteria,
+    rentStartDate,
+    rentEndDate,
+    tenancyID,
+  } = req.body;
 
-  res.status(201).json(thisTenancy);
-};
+  // Create Tenant
+  const tenant = await Tenant.create({
+    tenantsName,
+    tenantsEmail,
+    tenantsPhone,
+    documentType,
+    documentNumber,
+    // documentImageFront,
+    // documentImageBack,
+    monthlyNetIncome,
+    jobType,
+    randomID,
+  });
 
-// * @desc      Route to accept a tenancy by rimbo after RJ18 email
-// ! @route     POST /api/tenancies/tenancy/:tenancyID/rimbo/start-service
-const acceptTenancyRimbo = async (req, res) => {
-  const { tenancyID, rentStart } = req.body;
+  // Create Agency
+  const agent = await Agent.create({
+    agencyName,
+    isAgentAccepted,
+  });
 
-  let tenancy = await Tenancy.findOneAndUpdate({ tenancyID }, { rentStart });
-  res.status(200).json(tenancy);
+  // Create Property
+  const property = await Property.create({
+    building,
+    room,
+  });
+
+  // Create Tenancy
+  const tenancy = await Tenancy.create({
+    rentAmount,
+    acceptanceCriteria,
+    rentStartDate,
+    rentEndDate,
+    tenancyID,
+
+    agent: agent._id,
+    property: property._id,
+    tenant: tenant._id,
+  });
+  res.json(tenancy);
 };
 
 export {
+  // Regular
   registerTenancy,
   getAllTenancies,
   getSingleTenancy,
   updateSingleTenancy,
   acceptTenancyRimbo,
+  // Badi
   registerBadiTenancy,
   updateBadiSingleTenancy,
+  // StarCity
+  registerStarcityTenancy,
 };

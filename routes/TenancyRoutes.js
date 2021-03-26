@@ -6,13 +6,18 @@ import multer from "multer";
 
 // Controllers
 import {
+  // ! Regular Flow
   registerTenancy,
   getAllTenancies,
   getSingleTenancy,
   updateSingleTenancy,
   acceptTenancyRimbo,
+  // ! Badi Flow
   registerBadiTenancy,
   updateBadiSingleTenancy,
+
+  // ! StarCity Flow
+  registerStarcityTenancy,
 } from "../controllers/TenancyController.js";
 
 const __dirname = path.resolve();
@@ -45,3 +50,6 @@ router
 router.route("/badi").post(registerBadiTenancy);
 router.route("/tenancy/badi/:tenancyID").post(updateBadiSingleTenancy);
 export default router;
+
+// StarCity Flow Routes
+router.route("/starcity").post(registerStarcityTenancy);

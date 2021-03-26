@@ -6,16 +6,20 @@ import multer from "multer";
 
 // Controllers
 import {
+  // Regular
   registerTenantRJ2,
   registerTenantRJ2Upload,
   acceptTenantRimbo,
   getAllTenants,
   getSingleTenant,
   registerTenantRJ3,
-  registerEnsoTenants,
-  getAllEnsoTenants,
   acceptTenantPM,
   acceptTenantCard,
+  // Enso
+  registerEnsoTenants,
+  getAllEnsoTenants,
+  // StarCity
+  addFilesTenantSC,
 } from "../controllers/TenantUserController.js";
 
 const __dirname = path.resolve();
@@ -47,5 +51,10 @@ router.route("/stripe/:randomID").post(registerTenantRJ3);
 
 // Enso Product
 router.route("/enso").get(getAllEnsoTenants).post(registerEnsoTenants);
+
+// StarCity Product
+router
+  .route("/tenant/:randomID/starcity/upload")
+  .post(upload.any(), addFilesTenantSC);
 
 export default router;

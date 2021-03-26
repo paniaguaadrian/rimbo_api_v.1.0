@@ -11,6 +11,7 @@ const tenancySchema = new Schema(
     product: { type: String },
     tenancyID: { type: String },
     pmAnex: { type: String },
+    acceptanceCriteria: { type: String },
 
     pm: { type: Schema.Types.ObjectId, ref: "PM" },
     property: { type: Schema.Types.ObjectId, ref: "Property" },

@@ -1,5 +1,6 @@
 import Tenant from "../models/TenantUserModel.js";
 
+// ? Regular Flow
 // * @desc      Route to get all tenants
 // ! @route     GET /api/tenants
 const getAllTenants = async (req, res) => {
@@ -11,6 +12,7 @@ const getAllTenants = async (req, res) => {
   }
 };
 
+// ? Regular Flow
 // * @desc      Route for RJ3 to get a single Tenant
 // ! @route     GET /api/tenants/tenant/:randomID
 const getSingleTenant = async (req, res) => {
@@ -24,6 +26,7 @@ const getSingleTenant = async (req, res) => {
   }
 };
 
+// ? Regular Flow
 // * @desc      Route to register new information of tenant at RJ2
 // ! @route     POST /api/tenants/tenant/:randomID
 const registerTenantRJ2 = async (req, res) => {
@@ -53,6 +56,7 @@ const registerTenantRJ2 = async (req, res) => {
   res.status(200).json(tenant);
 };
 
+// ? Regular Flow
 // * @desc      Route to upload images and files of tenant at RJ2
 // ! @route     POST /api/tenants/tenant/:randomID/upload
 const registerTenantRJ2Upload = async (req, res) => {
@@ -80,6 +84,7 @@ const registerTenantRJ2Upload = async (req, res) => {
   res.status(200).json(tenant);
 };
 
+// ? Regular Flow
 // * @desc      Route to accept a tenant by Rimbo after RJ2, on RJXX3 email
 // ! @route     POST /api/tenants/tenant/:randomID/approved
 const acceptTenantRimbo = async (req, res) => {
@@ -89,6 +94,7 @@ const acceptTenantRimbo = async (req, res) => {
   res.status(200).json(tenant);
 };
 
+// ? Regular Flow
 // * @desc      Route to accept a tenant by PM after RJ2, on RJ11 email
 // ! @route     POST /api/tenants/tenant/:randomID/pm/approved
 const acceptTenantPM = async (req, res) => {
@@ -98,6 +104,7 @@ const acceptTenantPM = async (req, res) => {
   res.status(200).json(tenant);
 };
 
+// ? Regular Flow
 // * @desc      Route to accept a tenant Card by Rimbo after RJ2, on RJ15 email
 // ! @route     POST /api/tenants/tenant/:randomID/card/approved
 const acceptTenantCard = async (req, res) => {
@@ -107,6 +114,7 @@ const acceptTenantCard = async (req, res) => {
   res.status(200).json(tenant);
 };
 
+// ? Regular Flow
 // * @desc      Route to register new tenant debit card details at RJ3
 // ! @route     POST /api/tenants/stripe/:randomID
 const registerTenantRJ3 = async (req, res) => {
@@ -121,6 +129,7 @@ const registerTenantRJ3 = async (req, res) => {
   res.status(200).json(tenant);
 };
 
+// ? Enso Flow
 // * @desc      Route to register a new tenant from enso product/stripe
 // ! @route     POST /api/tenants/enso
 const registerEnsoTenants = async (req, res) => {
@@ -155,6 +164,7 @@ const registerEnsoTenants = async (req, res) => {
   }
 };
 
+// ? Enso Flow
 // * @desc      Route to get allTenants from enso product/stripe
 // ! @route     GET /api/tenants/enso
 const getAllEnsoTenants = async (req, res) => {
@@ -166,15 +176,41 @@ const getAllEnsoTenants = async (req, res) => {
   }
 };
 
+// ? StarCity Flow
+// * @desc      Route to upload images and files of tenant at F1SC
+// ! @route     POST /api/tenants/tenant/:randomID/starcity/upload
+const addFilesTenantSC = async (req, res) => {
+  const { randomID } = req.body;
+
+  const DF = req.files[0];
+  const DB = req.files[1];
+
+  const DFUrl = DF.linkUrl;
+  const DBUrl = DB.linkUrl;
+
+  let tenant = await Tenant.findOneAndUpdate(
+    { randomID },
+    {
+      documentImageFront: DFUrl,
+      documentImageBack: DBUrl,
+    }
+  );
+  res.status(200).json(tenant);
+};
+
 export {
+  // Regular
   registerTenantRJ2,
   registerTenantRJ2Upload,
   acceptTenantRimbo,
   getAllTenants,
   getSingleTenant,
   registerTenantRJ3,
-  registerEnsoTenants,
-  getAllEnsoTenants,
   acceptTenantPM,
   acceptTenantCard,
+  // Enso
+  registerEnsoTenants,
+  getAllEnsoTenants,
+  // StarCity
+  addFilesTenantSC,
 };

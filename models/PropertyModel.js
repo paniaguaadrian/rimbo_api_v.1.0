@@ -8,6 +8,8 @@ const propertySchema = new Schema(
     rentalAddressSecond: { type: String },
     rentalCity: { type: String },
     rentalPostalCode: { type: String },
+    building: { type: String },
+    room: { type: String },
   },
   { timestamps: true }
 );
