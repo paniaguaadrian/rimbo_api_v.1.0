@@ -332,10 +332,10 @@ const registerStarcityTenancy = async (req, res) => {
     tenantsName,
     tenantsEmail,
     tenantsPhone,
+    tenantsAddress,
+    tenantsZipCode,
     documentType,
     documentNumber,
-    // documentImageFront,
-    // documentImageBack,
     monthlyNetIncome,
     jobType,
     randomID,
@@ -361,16 +361,26 @@ const registerStarcityTenancy = async (req, res) => {
     tenantsName,
     tenantsEmail,
     tenantsPhone,
+    tenantsAddress,
+    tenantsZipCode,
     documentType,
     documentNumber,
-    // documentImageFront,
-    // documentImageBack,
     monthlyNetIncome,
     jobType,
     randomID,
   });
 
   // Create Agency
+  // let agent = await Agent.find({ agencyName });
+  // if (agent.lenght >= 0) {
+  //   agent = Agent.create({
+  //     agencyName,
+  //     isAgentAccepted,
+  //   });
+  // } else {
+  //   agent = agent[0];
+  // }
+
   const agent = await Agent.create({
     agencyName,
     isAgentAccepted,
