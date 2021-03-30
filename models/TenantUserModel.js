@@ -17,7 +17,7 @@ const TenantSchema = new Schema(
     documentType: { type: String },
     documentNumber: { type: String },
     tenantsAddress: { type: String },
-    tenantsZipCode: { type: Number },
+    tenantsZipCode: { type: String },
     documentImageFront: { type: String },
     documentImageBack: { type: String },
     lastPayslip: { type: String },
