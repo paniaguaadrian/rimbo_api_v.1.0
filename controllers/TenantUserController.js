@@ -198,6 +198,16 @@ const addFilesTenantSC = async (req, res) => {
   res.status(200).json(tenant);
 };
 
+// ? StarCity Flow
+// * @desc      Route to know if tenant enter on RJ3 / card registration page
+// ! @route     POST /api/tenants/tenant/:randomID/payment/try
+const tenantTryPayment = async (req, res) => {
+  const { randomID, isTrying } = req.body;
+
+  let tenant = await Tenant.findOneAndUpdate({ randomID }, { isTrying });
+  res.status(200).json(tenant);
+};
+
 export {
   // Regular
   registerTenantRJ2,
@@ -213,4 +223,5 @@ export {
   getAllEnsoTenants,
   // StarCity
   addFilesTenantSC,
+  tenantTryPayment,
 };

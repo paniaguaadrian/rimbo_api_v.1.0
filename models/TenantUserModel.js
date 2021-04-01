@@ -8,6 +8,7 @@ const TenantSchema = new Schema(
     tenantsPhone: { type: String },
     propertyManagerName: { type: String },
     isAccepted: { type: Boolean, default: false },
+    isTrying: { type: Boolean, default: false },
     isRimboAccepted: { type: Boolean, default: false },
     isPMAccepted: { type: Boolean, default: false },
     isCardAccepted: { type: Boolean, default: false },

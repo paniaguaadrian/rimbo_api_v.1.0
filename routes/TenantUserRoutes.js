@@ -20,6 +20,7 @@ import {
   getAllEnsoTenants,
   // StarCity
   addFilesTenantSC,
+  tenantTryPayment,
 } from "../controllers/TenantUserController.js";
 
 const __dirname = path.resolve();
@@ -45,6 +46,7 @@ router
   .route("/tenant/:randomID/upload")
   .post(upload.any(), registerTenantRJ2Upload);
 router.route("/tenant/:randomID/approved").post(acceptTenantRimbo);
+router.route("/tenant/:randomID/payment/try").post(tenantTryPayment);
 router.route("/tenant/:randomID/pm/approved").post(acceptTenantPM);
 router.route("/tenant/:randomID/card/approved").post(acceptTenantCard);
 router.route("/stripe/:randomID").post(registerTenantRJ3);
