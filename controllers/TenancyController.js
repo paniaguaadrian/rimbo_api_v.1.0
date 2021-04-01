@@ -338,6 +338,7 @@ const registerStarcityTenancy = async (req, res) => {
     documentNumber,
     monthlyNetIncome,
     jobType,
+    propertyManagerName,
     randomID,
 
     // Agency
@@ -367,12 +368,12 @@ const registerStarcityTenancy = async (req, res) => {
     documentNumber,
     monthlyNetIncome,
     jobType,
+    propertyManagerName,
     randomID,
   });
 
   // Create Agency
   let agent = await Agent.find({ agencyName });
-  console.log(agent);
   if (agent.length === 0) {
     agent = await Agent.create({
       agencyName,
