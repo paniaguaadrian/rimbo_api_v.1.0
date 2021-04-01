@@ -371,20 +371,21 @@ const registerStarcityTenancy = async (req, res) => {
   });
 
   // Create Agency
-  // let agent = await Agent.find({ agencyName });
-  // if (agent.lenght >= 0) {
-  //   agent = Agent.create({
-  //     agencyName,
-  //     isAgentAccepted,
-  //   });
-  // } else {
-  //   agent = agent[0];
-  // }
+  let agent = await Agent.find({ agencyName });
+  console.log(agent);
+  if (agent.length === 0) {
+    agent = await Agent.create({
+      agencyName,
+      isAgentAccepted,
+    });
+  } else {
+    agent = agent[0];
+  }
 
-  const agent = await Agent.create({
-    agencyName,
-    isAgentAccepted,
-  });
+  // const agent = await Agent.create({
+  //   agencyName,
+  //   isAgentAccepted,
+  // });
 
   // Create Property
   const property = await Property.create({
