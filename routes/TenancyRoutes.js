@@ -18,6 +18,8 @@ import {
 
   // ! StarCity Flow
   registerStarcityTenancy,
+  // ! Habitat
+  registerHabitatTenancy,
 } from "../controllers/TenancyController.js";
 
 const __dirname = path.resolve();
@@ -53,3 +55,6 @@ export default router;
 
 // StarCity Flow Routes
 router.route("/starcity").post(registerStarcityTenancy);
+
+// Habitat Routes
+router.route("/habitat").post(registerHabitatTenancy);
