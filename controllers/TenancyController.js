@@ -431,6 +431,7 @@ const registerHabitatTenancy = async (req, res) => {
 
     // Property
     rentalAddress,
+    rentalAddressSecond,
     rentalCity,
     rentalPostalCode,
 
@@ -474,6 +475,7 @@ const registerHabitatTenancy = async (req, res) => {
   // Create Property
   const property = await Property.create({
     rentalAddress,
+    rentalAddressSecond,
     rentalCity,
     rentalPostalCode,
   });
