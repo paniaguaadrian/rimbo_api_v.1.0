@@ -37,8 +37,10 @@ const registerTenantRJ2 = async (req, res) => {
     documentNumber,
     tenantsAddress,
     tenantsZipCode,
-    isAcceptedGC,
+    isAcceptedPrivacy,
     randomID,
+    // ? This is for Badi Flow ⬇️
+    // isAcceptedGC,
   } = req.body;
 
   let tenant = await Tenant.findOneAndUpdate(
@@ -50,7 +52,9 @@ const registerTenantRJ2 = async (req, res) => {
       documentNumber,
       tenantsAddress,
       tenantsZipCode,
-      isAcceptedGC,
+      isAcceptedPrivacy,
+      // ? This is for Badi Flow ⬇️
+      // isAcceptedGC,
     }
   );
   res.status(200).json(tenant);
@@ -64,21 +68,28 @@ const registerTenantRJ2Upload = async (req, res) => {
 
   const DF = req.files[0];
   const DB = req.files[1];
-  const LP = req.files[2];
-  const PP = req.files[3];
+  const DCA = req.files[2];
+
+  // ? This is for Badi Flow
+  // const LP = req.files[2];
+  // const PP = req.files[3];
 
   const DFUrl = DF.linkUrl;
   const DBUrl = DB.linkUrl;
-  const LPUrl = LP.linkUrl;
-  const PPUrl = PP.linkUrl;
+  const DCAUrl = DCA.linkUrl;
+
+  // ? This is for Badi Flow
+  // const LPUrl = LP.linkUrl;
+  // const PPUrl = PP.linkUrl;
 
   let tenant = await Tenant.findOneAndUpdate(
     { randomID },
     {
       documentImageFront: DFUrl,
       documentImageBack: DBUrl,
-      lastPayslip: LPUrl,
-      previousPayslip: PPUrl,
+      documentConfirmAddress: DCAUrl,
+      // lastPayslip: LPUrl,
+      // previousPayslip: PPUrl,
     }
   );
   res.status(200).json(tenant);
@@ -90,7 +101,11 @@ const registerTenantRJ2Upload = async (req, res) => {
 const acceptTenantRimbo = async (req, res) => {
   const { randomID, isRimboAccepted } = req.body;
 
-  let tenant = await Tenant.findOneAndUpdate({ randomID }, { isRimboAccepted });
+  let tenant = await Tenant.findOneAndUpdate(
+    { randomID },
+    { isRimboAccepted, isRimboAccepted }
+  );
+
   res.status(200).json(tenant);
 };
 
@@ -118,12 +133,12 @@ const acceptTenantCard = async (req, res) => {
 // * @desc      Route to register new tenant debit card details at RJ3
 // ! @route     POST /api/tenants/stripe/:randomID
 const registerTenantRJ3 = async (req, res) => {
-  const { isAccepted, randomID } = req.body;
+  const { isAcceptedGC, randomID } = req.body;
 
   let tenant = await Tenant.findOneAndUpdate(
     { randomID },
     {
-      isAccepted,
+      isAcceptedGC,
     }
   );
   res.status(200).json(tenant);

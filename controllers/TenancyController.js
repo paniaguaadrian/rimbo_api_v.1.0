@@ -26,7 +26,7 @@ const getAllTenancies = async (req, res) => {
 // ! @route     POST /api/tenancies
 const registerTenancy = async (req, res) => {
   const {
-    // tenant from Rj1
+    // tenant
     tenantsName,
     tenantsEmail,
     tenantsPhone,
