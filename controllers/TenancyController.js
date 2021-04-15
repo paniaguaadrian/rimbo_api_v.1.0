@@ -30,7 +30,26 @@ const registerTenancy = async (req, res) => {
     tenantsName,
     tenantsEmail,
     tenantsPhone,
+    propertyManagerName,
     randomID,
+
+    // tenantTwo
+    tenantsNameTwo,
+    tenantsEmailTwo,
+    tenantsPhoneTwo,
+    randomIDTwo,
+
+    // tenantThree
+    tenantsNameThree,
+    tenantsEmailThree,
+    tenantsPhoneThree,
+    randomIDThree,
+
+    // tenantFour
+    tenantsNameFour,
+    tenantsEmailFour,
+    tenantsPhoneFour,
+    randomIDFour,
 
     // agency agent
     agencyName,
@@ -71,8 +90,50 @@ const registerTenancy = async (req, res) => {
     tenantsName,
     tenantsEmail,
     tenantsPhone,
+    propertyManagerName,
     randomID,
   });
+
+  let tenantTwo = "";
+  if (tenantsNameTwo != "" && tenantsEmailTwo != "" && tenantsPhoneTwo != "") {
+    tenantTwo = await Tenant.create({
+      tenantsName: tenantsNameTwo,
+      tenantsEmail: tenantsEmailTwo,
+      tenantsPhone: tenantsPhoneTwo,
+      propertyManagerName,
+      randomID: randomIDTwo,
+    });
+  }
+
+  let tenantThree = "";
+  if (
+    tenantsNameThree != "" &&
+    tenantsEmailThree != "" &&
+    tenantsPhoneThree != ""
+  ) {
+    tenantThree = await Tenant.create({
+      tenantsName: tenantsNameThree,
+      tenantsEmail: tenantsEmailThree,
+      tenantsPhone: tenantsPhoneThree,
+      propertyManagerName,
+      randomID: randomIDThree,
+    });
+  }
+
+  let tenantFour = "";
+  if (
+    tenantsNameFour != "" &&
+    tenantsEmailFour != "" &&
+    tenantsPhoneFour != ""
+  ) {
+    tenantFour = await Tenant.create({
+      tenantsName: tenantsNameFour,
+      tenantsEmail: tenantsEmailFour,
+      tenantsPhone: tenantsPhoneFour,
+      propertyManagerName,
+      randomID: randomIDFour,
+    });
+  }
 
   // Create Landlord
   let landlord = await Landlord.find({ landlordEmail });
@@ -124,20 +185,83 @@ const registerTenancy = async (req, res) => {
   });
 
   // Create Tenancy
-  const tenancy = await Tenancy.create({
+  const tenancyData = {
     rentAmount,
     rentDuration,
     RentStartDate,
     RentEndDate,
     product,
     tenancyID,
-
     agent: agent._id,
     property: property._id,
     landlord: landlord._id,
     tenant: tenant._id,
     pm: pm._id,
-  });
+  };
+
+  const tenancyDataTwo = {
+    rentAmount,
+    rentDuration,
+    RentStartDate,
+    RentEndDate,
+    product,
+    tenancyID,
+    agent: agent._id,
+    property: property._id,
+    landlord: landlord._id,
+    tenant: tenant._id,
+    tenantTwo: tenantTwo._id,
+    pm: pm._id,
+  };
+
+  const tenancyDataThree = {
+    rentAmount,
+    rentDuration,
+    RentStartDate,
+    RentEndDate,
+    product,
+    tenancyID,
+    agent: agent._id,
+    property: property._id,
+    landlord: landlord._id,
+    tenant: tenant._id,
+    tenantTwo: tenantTwo._id,
+    tenantThree: tenantThree._id,
+    pm: pm._id,
+  };
+
+  const tenancyDataFour = {
+    rentAmount,
+    rentDuration,
+    RentStartDate,
+    RentEndDate,
+    product,
+    tenancyID,
+    agent: agent._id,
+    property: property._id,
+    landlord: landlord._id,
+    tenant: tenant._id,
+    tenantTwo: tenantTwo._id,
+    tenantThree: tenantThree._id,
+    tenantFour: tenantFour._id,
+    pm: pm._id,
+  };
+
+  let tenancy;
+  if (tenantTwo === "" && tenantThree === "") {
+    console.log("Executing if");
+    tenancy = await Tenancy.create(tenancyData);
+  } else if (tenantTwo != "" && tenantThree === "") {
+    console.log("Executing first else if");
+    tenancy = await Tenancy.create(tenancyDataTwo);
+  } else if (tenantThree != "" && tenantTwo != "" && tenantFour === "") {
+    console.log("Executing second else if");
+    tenancy = await Tenancy.create(tenancyDataThree);
+  } else if (tenantFour != "" && tenantThree != "" && tenantTwo != "") {
+    console.log("Executing third else if");
+    tenancy = await Tenancy.create(tenancyDataFour);
+  }
+
   res.json(tenancy);
 };
 

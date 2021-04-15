@@ -17,6 +17,9 @@ const tenancySchema = new Schema(
     property: { type: Schema.Types.ObjectId, ref: "Property" },
     landlord: { type: Schema.Types.ObjectId, ref: "Landlord" },
     tenant: { type: Schema.Types.ObjectId, ref: "Tenant" },
+    tenantTwo: { type: Schema.Types.ObjectId, ref: "Tenant" },
+    tenantThree: { type: Schema.Types.ObjectId, ref: "Tenant" },
+    tenantFour: { type: Schema.Types.ObjectId, ref: "Tenant" },
     agent: { type: Schema.Types.ObjectId, ref: "Agent" },
   },
   { timestamps: true }
