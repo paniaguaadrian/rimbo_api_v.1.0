@@ -12,6 +12,9 @@ const getAllTenancies = async (req, res) => {
     const allTenancies = await Tenancy.find()
       .populate("landlord")
       .populate("tenant")
+      .populate("tenantTwo")
+      .populate("tenantThree")
+      .populate("tenantFour")
       .populate("property")
       .populate("pm")
       .populate("agent");
@@ -249,16 +252,12 @@ const registerTenancy = async (req, res) => {
 
   let tenancy;
   if (tenantTwo === "" && tenantThree === "") {
-    console.log("Executing if");
     tenancy = await Tenancy.create(tenancyData);
   } else if (tenantTwo != "" && tenantThree === "") {
-    console.log("Executing first else if");
     tenancy = await Tenancy.create(tenancyDataTwo);
   } else if (tenantThree != "" && tenantTwo != "" && tenantFour === "") {
-    console.log("Executing second else if");
     tenancy = await Tenancy.create(tenancyDataThree);
   } else if (tenantFour != "" && tenantThree != "" && tenantTwo != "") {
-    console.log("Executing third else if");
     tenancy = await Tenancy.create(tenancyDataFour);
   }
 
