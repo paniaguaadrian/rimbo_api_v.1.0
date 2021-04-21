@@ -101,10 +101,7 @@ const registerTenantRJ2Upload = async (req, res) => {
 const acceptTenantRimbo = async (req, res) => {
   const { randomID, isRimboAccepted } = req.body;
 
-  let tenant = await Tenant.findOneAndUpdate(
-    { randomID },
-    { isRimboAccepted, isRimboAccepted }
-  );
+  let tenant = await Tenant.findOneAndUpdate({ randomID }, { isRimboAccepted });
 
   res.status(200).json(tenant);
 };

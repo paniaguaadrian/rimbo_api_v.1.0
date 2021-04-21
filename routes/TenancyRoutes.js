@@ -9,6 +9,7 @@ import {
   // ! Regular Flow
   registerTenancy,
   getAllTenancies,
+  acceptAllTenantsRimbo,
   getSingleTenancy,
   updateSingleTenancy,
   acceptTenancyRimbo,
@@ -44,6 +45,10 @@ router
   .route("/tenancy/:tenancyID")
   .post(upload.any(), updateSingleTenancy)
   .get(getSingleTenancy);
+
+router
+  .route("/tenancy/:tenancyID/allTenantsAccepted")
+  .post(acceptAllTenantsRimbo);
 router
   .route("/tenancy/:tenancyID/rimbo/start-service")
   .post(acceptTenancyRimbo);

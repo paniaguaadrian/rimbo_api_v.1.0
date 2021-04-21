@@ -12,6 +12,7 @@ const tenancySchema = new Schema(
     tenancyID: { type: String },
     pmAnex: { type: String },
     acceptanceCriteria: { type: String },
+    isAllTenantsAccepted: { type: Boolean, default: false },
 
     pm: { type: Schema.Types.ObjectId, ref: "PM" },
     property: { type: Schema.Types.ObjectId, ref: "Property" },

@@ -284,6 +284,20 @@ const getSingleTenancy = async (req, res) => {
 };
 
 // ? Regular Flow
+// * @desc      Route to accept all tenants in a tenancy by Rimbo after RJ2
+// ! @route     POST /api/tenancies/tenancy/:tenancyID/allTenantsAccepted
+const acceptAllTenantsRimbo = async (req, res) => {
+  const { tenancyID, isAllTenantsAccepted } = req.body;
+
+  let tenancy = await Tenancy.findOneAndUpdate(
+    { tenancyID },
+    { isAllTenantsAccepted }
+  );
+
+  res.status(200).json(tenancy);
+};
+
+// ? Regular Flow
 // * @desc      Route to upddate a single Tenancy by tenancyID for RJS (Regular Flow)
 // ! @route     POST /api/tenancies/tenancy/:tenancyID
 const updateSingleTenancy = async (req, res) => {
@@ -622,6 +636,7 @@ export {
   // Regular
   registerTenancy,
   getAllTenancies,
+  acceptAllTenantsRimbo,
   getSingleTenancy,
   updateSingleTenancy,
   acceptTenancyRimbo,
