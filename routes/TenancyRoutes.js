@@ -10,6 +10,9 @@ import {
   registerTenancy,
   getAllTenancies,
   acceptAllTenantsRimbo,
+  acceptTenancyPM,
+  acceptAllTenantsCardsRimbo,
+  acceptTenancyCardPM,
   getSingleTenancy,
   updateSingleTenancy,
   acceptTenancyRimbo,
@@ -49,6 +52,13 @@ router
 router
   .route("/tenancy/:tenancyID/allTenantsAccepted")
   .post(acceptAllTenantsRimbo);
+router.route("/tenancy/:tenancyID/pm/approved").post(acceptTenancyPM);
+
+router
+  .route("/tenancy/:tenancyID/allTenantsCardAccepted")
+  .post(acceptAllTenantsCardsRimbo);
+router.route("/tenancy/:tenancyID/pm/card/approved").post(acceptTenancyCardPM);
+
 router
   .route("/tenancy/:tenancyID/rimbo/start-service")
   .post(acceptTenancyRimbo);

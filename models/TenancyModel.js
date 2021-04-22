@@ -13,7 +13,9 @@ const tenancySchema = new Schema(
     pmAnex: { type: String },
     acceptanceCriteria: { type: String },
     isAllTenantsAccepted: { type: Boolean, default: false },
-
+    isTenancyAcceptedByPM: { type: Boolean, default: false },
+    isAllCardsAccepted: { type: Boolean, default: false },
+    isTenancyCardAcceptedByPM: { type: Boolean, default: false },
     pm: { type: Schema.Types.ObjectId, ref: "PM" },
     property: { type: Schema.Types.ObjectId, ref: "Property" },
     landlord: { type: Schema.Types.ObjectId, ref: "Landlord" },

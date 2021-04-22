@@ -274,6 +274,9 @@ const getSingleTenancy = async (req, res) => {
     const thisTenancy = await Tenancy.findOne({ tenancyID })
       .populate("landlord")
       .populate("tenant")
+      .populate("tenantTwo")
+      .populate("tenantThree")
+      .populate("tenantFour")
       .populate("agent")
       .populate("pm")
       .populate("property");
@@ -294,6 +297,46 @@ const acceptAllTenantsRimbo = async (req, res) => {
     { isAllTenantsAccepted }
   );
 
+  res.status(200).json(tenancy);
+};
+
+// ? Regular Flow
+// * @desc      Route to accept a tenancy by PM after RJ2
+// ! @route     POST /api/tenancies/tenancy/:tenancyID/pm/approved
+const acceptTenancyPM = async (req, res) => {
+  const { tenancyID, isTenancyAcceptedByPM } = req.body;
+
+  let tenancy = await Tenancy.findOneAndUpdate(
+    { tenancyID },
+    { isTenancyAcceptedByPM }
+  );
+  res.status(200).json(tenancy);
+};
+
+// ? Regular Flow
+// * @desc      Route to accept all tenants CARDS in a tenancy by Rimbo after RJ3
+// ! @route     POST /api/tenancies/tenancy/:tenancyID/allTenantsCardAccepted
+const acceptAllTenantsCardsRimbo = async (req, res) => {
+  const { tenancyID, isAllCardsAccepted } = req.body;
+
+  let tenancy = await Tenancy.findOneAndUpdate(
+    { tenancyID },
+    { isAllCardsAccepted }
+  );
+
+  res.status(200).json(tenancy);
+};
+
+// ? Regular Flow
+// * @desc      Route to accept a tenancy by PM after RJ3 cards
+// ! @route     POST /api/tenancies/tenancy/:tenancyID/pm/card/approved
+const acceptTenancyCardPM = async (req, res) => {
+  const { tenancyID, isTenancyCardAcceptedByPM } = req.body;
+
+  let tenancy = await Tenancy.findOneAndUpdate(
+    { tenancyID },
+    { isTenancyCardAcceptedByPM }
+  );
   res.status(200).json(tenancy);
 };
 
@@ -637,6 +680,9 @@ export {
   registerTenancy,
   getAllTenancies,
   acceptAllTenantsRimbo,
+  acceptTenancyPM,
+  acceptAllTenantsCardsRimbo,
+  acceptTenancyCardPM,
   getSingleTenancy,
   updateSingleTenancy,
   acceptTenancyRimbo,
