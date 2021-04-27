@@ -38,6 +38,7 @@ const registerTenantRJ2 = async (req, res) => {
     tenantsAddress,
     tenantsZipCode,
     isAcceptedPrivacy,
+    stageOne,
     randomID,
     // ? This is for Badi Flow ⬇️
     // isAcceptedGC,
@@ -53,6 +54,7 @@ const registerTenantRJ2 = async (req, res) => {
       tenantsAddress,
       tenantsZipCode,
       isAcceptedPrivacy,
+      stageOne,
       // ? This is for Badi Flow ⬇️
       // isAcceptedGC,
     }
