@@ -95,6 +95,7 @@ const registerTenancy = async (req, res) => {
     tenantsPhone,
     propertyManagerName,
     randomID,
+    tenancyID,
   });
 
   let tenantTwo = "";
@@ -105,6 +106,7 @@ const registerTenancy = async (req, res) => {
       tenantsPhone: tenantsPhoneTwo,
       propertyManagerName,
       randomID: randomIDTwo,
+      tenancyID,
     });
   }
 
@@ -120,6 +122,7 @@ const registerTenancy = async (req, res) => {
       tenantsPhone: tenantsPhoneThree,
       propertyManagerName,
       randomID: randomIDThree,
+      tenancyID,
     });
   }
 
@@ -135,6 +138,7 @@ const registerTenancy = async (req, res) => {
       tenantsPhone: tenantsPhoneFour,
       propertyManagerName,
       randomID: randomIDFour,
+      tenancyID,
     });
   }
 
