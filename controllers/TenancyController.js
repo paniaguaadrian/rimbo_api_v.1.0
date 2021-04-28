@@ -686,6 +686,92 @@ const registerHabitatTenancy = async (req, res) => {
   res.json(tenancy);
 };
 
+// ? Enso Flow
+// * @desc      Route to create a new Tenancy without files attached
+// ! @route     POST /api/tenancies/enso
+const registerEnsoTenancy = async (req, res) => {
+  const {
+    // Tenant
+    tenantsName,
+    tenantsEmail,
+    tenantsPhone,
+    tenantsAddress,
+    tenantsZipCode,
+    documentType,
+    documentNumber,
+    monthlyNetIncome,
+    jobType,
+    propertyManagerName,
+    randomID,
+
+    // Agency
+    agencyName,
+    isAgentAccepted,
+
+    // Property
+    rentalAddress,
+    room,
+
+    // Tenancy
+    rentAmount,
+    acceptanceCriteria,
+    rentStartDate,
+    rentEndDate,
+    tenancyID,
+  } = req.body;
+
+  // Create Tenant
+  const tenant = await Tenant.create({
+    tenantsName,
+    tenantsEmail,
+    tenantsPhone,
+    tenantsAddress,
+    tenantsZipCode,
+    documentType,
+    documentNumber,
+    monthlyNetIncome,
+    jobType,
+    propertyManagerName,
+    randomID,
+  });
+
+  // Create Agency
+  let agent = await Agent.find({ agencyName });
+  if (agent.length === 0) {
+    agent = await Agent.create({
+      agencyName,
+      isAgentAccepted,
+    });
+  } else {
+    agent = agent[0];
+  }
+
+  // const agent = await Agent.create({
+  //   agencyName,
+  //   isAgentAccepted,
+  // });
+
+  // Create Property
+  const property = await Property.create({
+    rentalAddress,
+    room,
+  });
+
+  // Create Tenancy
+  const tenancy = await Tenancy.create({
+    rentAmount,
+    acceptanceCriteria,
+    rentStartDate,
+    rentEndDate,
+    tenancyID,
+
+    agent: agent._id,
+    property: property._id,
+    tenant: tenant._id,
+  });
+  res.json(tenancy);
+};
+
 export {
   // Regular
   registerTenancy,
@@ -704,4 +790,6 @@ export {
   registerStarcityTenancy,
   // Habitat
   registerHabitatTenancy,
+  // Enso
+  registerEnsoTenancy,
 };

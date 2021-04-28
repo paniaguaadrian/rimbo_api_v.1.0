@@ -24,6 +24,8 @@ import {
   registerStarcityTenancy,
   // ! Habitat
   registerHabitatTenancy,
+  // ! Enso
+  registerEnsoTenancy,
 } from "../controllers/TenancyController.js";
 
 const __dirname = path.resolve();
@@ -73,3 +75,6 @@ router.route("/starcity").post(registerStarcityTenancy);
 
 // Habitat Routes
 router.route("/habitat").post(registerHabitatTenancy);
+
+// Enso Routes
+router.route("/enso").post(registerEnsoTenancy);
