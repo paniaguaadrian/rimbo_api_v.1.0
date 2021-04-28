@@ -15,6 +15,7 @@ import {
   registerTenantRJ3,
   acceptTenantPM,
   acceptTenantCard,
+  controlTenant24h,
   // Enso
   registerEnsoTenants,
   getAllEnsoTenants,
@@ -50,6 +51,8 @@ router.route("/tenant/:randomID/payment/try").post(tenantTryPayment);
 router.route("/tenant/:randomID/pm/approved").post(acceptTenantPM);
 router.route("/tenant/:randomID/card/approved").post(acceptTenantCard);
 router.route("/stripe/:randomID").post(registerTenantRJ3);
+// Control tenant after RJ1 pre RJ2
+router.route("/tenant/:randomID/24h").post(controlTenant24h);
 
 // Enso Product
 router.route("/enso").get(getAllEnsoTenants).post(registerEnsoTenants);

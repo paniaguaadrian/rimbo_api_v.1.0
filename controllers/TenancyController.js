@@ -61,6 +61,7 @@ const registerTenancy = async (req, res) => {
     agencyContactPerson,
     agencyPhonePerson,
     isAgentAccepted,
+    agencyLanguage,
 
     // property apartment
     fullRentalAddress,
@@ -180,6 +181,7 @@ const registerTenancy = async (req, res) => {
       agencyContactPerson,
       agencyPhonePerson,
       isAgentAccepted,
+      agencyLanguage,
     });
   } else {
     agent = agent[0];

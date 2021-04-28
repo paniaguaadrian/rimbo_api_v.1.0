@@ -28,6 +28,8 @@ const TenantSchema = new Schema(
     isAcceptedPrivacy: { type: Boolean, default: false },
     isAcceptedGC: { type: Boolean, default: false },
     stageOne: { type: Number, default: 0 },
+    //TODO: Variable language
+    tenantsLanguage: { type: String },
   },
   { timestamps: true }
 );

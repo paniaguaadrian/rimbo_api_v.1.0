@@ -9,6 +9,8 @@ const agentSchema = new Schema(
     agencyPhonePerson: { type: String },
     isAgentAccepted: { type: Boolean, default: false },
     documentSepa: { type: String },
+    // TODO: Variable  language
+    agencyLanguage: { type: String },
   },
   { timestamps: true }
 );
