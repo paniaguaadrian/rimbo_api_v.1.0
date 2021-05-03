@@ -40,6 +40,7 @@ const registerTenantRJ2 = async (req, res) => {
     isAcceptedPrivacy,
     randomID,
     tenantsLanguage,
+    stageOne,
     // ? This is for Badi Flow ⬇️
     // isAcceptedGC,
   } = req.body;
@@ -55,6 +56,7 @@ const registerTenantRJ2 = async (req, res) => {
       tenantsZipCode,
       isAcceptedPrivacy,
       tenantsLanguage,
+      stageOne,
       // ? This is for Badi Flow ⬇️
       // isAcceptedGC,
     }
@@ -64,8 +66,8 @@ const registerTenantRJ2 = async (req, res) => {
 
 // ? Regular Flow
 // * @desc      Route to control tenant after 24h (not on RJ2)
-// ! @route     POST /api/tenants/tenant/:randomID/24h
-const controlTenant24h = async (req, res) => {
+// ! @route     POST /api/tenants/tenant/:randomID/reminder
+const controlTenantReminder = async (req, res) => {
   const { stageOne, randomID } = req.body;
 
   let tenant = await Tenant.findOneAndUpdate(
@@ -247,7 +249,7 @@ export {
   registerTenantRJ3,
   acceptTenantPM,
   acceptTenantCard,
-  controlTenant24h,
+  controlTenantReminder,
   // Enso
   registerEnsoTenants,
   getAllEnsoTenants,

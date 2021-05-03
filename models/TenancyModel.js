@@ -24,6 +24,7 @@ const tenancySchema = new Schema(
     tenantThree: { type: Schema.Types.ObjectId, ref: "Tenant" },
     tenantFour: { type: Schema.Types.ObjectId, ref: "Tenant" },
     agent: { type: Schema.Types.ObjectId, ref: "Agent" },
+    date: { type: Date, default: new Date() },
   },
   { timestamps: true }
 );
