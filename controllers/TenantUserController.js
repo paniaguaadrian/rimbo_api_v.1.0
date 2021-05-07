@@ -80,6 +80,34 @@ const controlTenantReminder = async (req, res) => {
 };
 
 // ? Regular Flow
+// * @desc      Route to delete tenant data after 27 days (not on RJ2)
+// ! @route     POST /api/tenants/tenant/:randomID/delete/tenant/data
+const deleteTenantData = async (req, res) => {
+  const {
+    stageOne,
+    randomID,
+    tenantsName,
+    tenantsEmail,
+    tenantsPhone,
+    tenantsAddress,
+    documentNumber,
+  } = req.body;
+
+  let tenant = await Tenant.findOneAndUpdate(
+    { randomID },
+    {
+      stageOne,
+      tenantsName,
+      tenantsEmail,
+      tenantsPhone,
+      tenantsAddress,
+      documentNumber,
+    }
+  );
+  res.status(200).json(tenant);
+};
+
+// ? Regular Flow
 // * @desc      Route to upload images and files of tenant at RJ2
 // ! @route     POST /api/tenants/tenant/:randomID/upload
 const registerTenantRJ2Upload = async (req, res) => {
@@ -126,12 +154,33 @@ const acceptTenantRimbo = async (req, res) => {
 };
 
 // ? Regular Flow
+// * @desc      Route to accept a tenant by Rimbo after RJ2, on RJXX3 email
+// ! @route     POST /api/tenants/tenant/:randomID/rejected
+const rejectTenantRimbo = async (req, res) => {
+  const { randomID, isRimboRejected } = req.body;
+
+  let tenant = await Tenant.findOneAndUpdate({ randomID }, { isRimboRejected });
+
+  res.status(200).json(tenant);
+};
+
+// ? Regular Flow
 // * @desc      Route to accept a tenant by PM after RJ2, on RJ11 email
 // ! @route     POST /api/tenants/tenant/:randomID/pm/approved
 const acceptTenantPM = async (req, res) => {
   const { randomID, isPMAccepted } = req.body;
 
   let tenant = await Tenant.findOneAndUpdate({ randomID }, { isPMAccepted });
+  res.status(200).json(tenant);
+};
+
+// ? Regular Flow
+// * @desc      Route to reject a tenant by PM after RJ2, on RJ11 email
+// ! @route     POST /api/tenants/tenant/:randomID/pm/rejected
+const rejectTenantPM = async (req, res) => {
+  const { randomID, isPMRejected } = req.body;
+
+  let tenant = await Tenant.findOneAndUpdate({ randomID }, { isPMRejected });
   res.status(200).json(tenant);
 };
 
@@ -244,12 +293,15 @@ export {
   registerTenantRJ2,
   registerTenantRJ2Upload,
   acceptTenantRimbo,
+  rejectTenantRimbo,
   getAllTenants,
   getSingleTenant,
   registerTenantRJ3,
   acceptTenantPM,
+  rejectTenantPM,
   acceptTenantCard,
   controlTenantReminder,
+  deleteTenantData,
   // Enso
   registerEnsoTenants,
   getAllEnsoTenants,

@@ -10,12 +10,15 @@ import {
   registerTenantRJ2,
   registerTenantRJ2Upload,
   acceptTenantRimbo,
+  rejectTenantRimbo,
   getAllTenants,
   getSingleTenant,
   registerTenantRJ3,
   acceptTenantPM,
+  rejectTenantPM,
   acceptTenantCard,
   controlTenantReminder,
+  deleteTenantData,
   // Enso
   registerEnsoTenants,
   getAllEnsoTenants,
@@ -47,12 +50,15 @@ router
   .route("/tenant/:randomID/upload")
   .post(upload.any(), registerTenantRJ2Upload);
 router.route("/tenant/:randomID/approved").post(acceptTenantRimbo);
+router.route("/tenant/:randomID/rejected").post(rejectTenantRimbo);
 router.route("/tenant/:randomID/payment/try").post(tenantTryPayment);
 router.route("/tenant/:randomID/pm/approved").post(acceptTenantPM);
+router.route("/tenant/:randomID/pm/rejected").post(rejectTenantPM);
 router.route("/tenant/:randomID/card/approved").post(acceptTenantCard);
 router.route("/stripe/:randomID").post(registerTenantRJ3);
 // Control tenant after RJ1 pre RJ2
 router.route("/tenant/:randomID/reminder").post(controlTenantReminder);
+router.route("/tenant/:randomID/delete/tenant/data").post(deleteTenantData);
 
 // Enso Product
 router.route("/enso").get(getAllEnsoTenants).post(registerEnsoTenants);
