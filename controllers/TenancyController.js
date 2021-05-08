@@ -627,7 +627,6 @@ const registerHabitatTenancy = async (req, res) => {
     rentalPostalCode,
 
     // Tenancy
-    product,
     rentAmount,
     rentStartDate,
     rentEndDate,
@@ -673,7 +672,6 @@ const registerHabitatTenancy = async (req, res) => {
 
   // Create Tenancy
   const tenancy = await Tenancy.create({
-    product,
     rentAmount,
     rentStartDate,
     rentEndDate,
