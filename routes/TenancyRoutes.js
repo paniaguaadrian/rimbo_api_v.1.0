@@ -26,6 +26,8 @@ import {
   registerHabitatTenancy,
   // ! Enso
   registerEnsoTenancy,
+  // ! Demo
+  registerDemoTenancy,
 } from "../controllers/TenancyController.js";
 
 const __dirname = path.resolve();
@@ -78,3 +80,6 @@ router.route("/habitat").post(registerHabitatTenancy);
 
 // Enso Routes
 router.route("/enso").post(registerEnsoTenancy);
+
+// Demo routes
+router.route("/demo").post(registerDemoTenancy);
