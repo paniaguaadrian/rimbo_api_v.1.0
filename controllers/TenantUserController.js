@@ -288,6 +288,42 @@ const tenantTryPayment = async (req, res) => {
   res.status(200).json(tenant);
 };
 
+// ? Big Demo Flow
+// * @desc      Route to register new information of tenant at RJ2
+// ! @route     POST /api/tenants/tenant/bigdemo/:randomID
+const registerTenantBigDemoRJ2 = async (req, res) => {
+  const {
+    monthlyNetIncome,
+    jobType,
+    documentType,
+    documentNumber,
+    tenantsAddress,
+    tenantsZipCode,
+    isAcceptedPrivacy,
+    randomID,
+    tenantsLanguage,
+    stageOne,
+    isRimboAccepted,
+  } = req.body;
+
+  let tenant = await Tenant.findOneAndUpdate(
+    { randomID },
+    {
+      monthlyNetIncome,
+      jobType,
+      documentType,
+      documentNumber,
+      tenantsAddress,
+      tenantsZipCode,
+      isAcceptedPrivacy,
+      tenantsLanguage,
+      stageOne,
+      isRimboAccepted,
+    }
+  );
+  res.status(200).json(tenant);
+};
+
 export {
   // Regular
   registerTenantRJ2,
@@ -308,4 +344,6 @@ export {
   // StarCity
   addFilesTenantSC,
   tenantTryPayment,
+  // Big Demo
+  registerTenantBigDemoRJ2,
 };

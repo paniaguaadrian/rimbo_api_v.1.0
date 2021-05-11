@@ -25,6 +25,8 @@ import {
   // StarCity
   addFilesTenantSC,
   tenantTryPayment,
+  // Big Demo
+  registerTenantBigDemoRJ2,
 } from "../controllers/TenantUserController.js";
 
 const __dirname = path.resolve();
@@ -68,4 +70,6 @@ router
   .route("/tenant/:randomID/starcity/upload")
   .post(upload.any(), addFilesTenantSC);
 
+// Big Demo
+router.route("/tenant/bigdemo/:randomID").post(registerTenantBigDemoRJ2);
 export default router;

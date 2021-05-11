@@ -801,6 +801,7 @@ const registerDemoTenancy = async (req, res) => {
     rentAmount,
     rentStartDate,
     rentEndDate,
+    product,
     tenancyID,
   } = req.body;
 
@@ -847,6 +848,7 @@ const registerDemoTenancy = async (req, res) => {
     rentAmount,
     rentStartDate,
     rentEndDate,
+    product,
     tenancyID,
 
     agent: agent._id,
