@@ -26,6 +26,8 @@ import {
   registerHabitatTenancy,
   // ! Enso
   registerEnsoTenancy,
+  // ! Ukio
+  registerUkioTenancy,
   // ! Demo
   registerDemoTenancy,
 } from "../controllers/TenancyController.js";
@@ -80,6 +82,9 @@ router.route("/habitat").post(registerHabitatTenancy);
 
 // Enso Routes
 router.route("/enso").post(registerEnsoTenancy);
+
+// Ukio Routes
+router.route("/ukio").post(registerUkioTenancy);
 
 // Demo routes
 router.route("/demo").post(registerDemoTenancy);

@@ -4,6 +4,8 @@ const Schema = mongoose.Schema;
 const TenantSchema = new Schema(
   {
     tenantsName: { type: String },
+    tenantsFirstName: { type: String },
+    tenantsLastName: { type: String },
     tenantsEmail: { type: String },
     tenantsPhone: { type: String },
     propertyManagerName: { type: String },

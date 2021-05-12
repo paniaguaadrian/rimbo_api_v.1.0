@@ -770,6 +770,94 @@ const registerEnsoTenancy = async (req, res) => {
   res.json(tenancy);
 };
 
+// ? Ukio Flow
+// * @desc      Route to create a new Tenancy without files attached
+// ! @route     POST /api/tenancies/ukio
+const registerUkioTenancy = async (req, res) => {
+  const {
+    // Tenant
+    tenantsFirstName,
+    tenantsLastName,
+    tenantsEmail,
+    tenantsPhone,
+    tenantsAddress,
+    tenantsZipCode,
+    documentType,
+    documentNumber,
+    monthlyNetIncome,
+    jobType,
+    propertyManagerName,
+    randomID,
+
+    // Agency
+    agencyName,
+    isAgentAccepted,
+
+    // Property
+    rentalAddress,
+    room,
+
+    // Tenancy
+    rentAmount,
+    rentStartDate,
+    rentEndDate,
+    product,
+    tenancyID,
+  } = req.body;
+
+  // Create Tenant
+  const tenant = await Tenant.create({
+    tenantsFirstName,
+    tenantsLastName,
+    tenantsEmail,
+    tenantsPhone,
+    tenantsAddress,
+    tenantsZipCode,
+    documentType,
+    documentNumber,
+    monthlyNetIncome,
+    jobType,
+    propertyManagerName,
+    randomID,
+  });
+
+  // Create Agency
+  let agent = await Agent.find({ agencyName });
+  if (agent.length === 0) {
+    agent = await Agent.create({
+      agencyName,
+      isAgentAccepted,
+    });
+  } else {
+    agent = agent[0];
+  }
+
+  // const agent = await Agent.create({
+  //   agencyName,
+  //   isAgentAccepted,
+  // });
+
+  // Create Property
+  const property = await Property.create({
+    rentalAddress,
+    room,
+  });
+
+  // Create Tenancy
+  const tenancy = await Tenancy.create({
+    rentAmount,
+    product,
+    rentStartDate,
+    rentEndDate,
+    tenancyID,
+
+    agent: agent._id,
+    property: property._id,
+    tenant: tenant._id,
+  });
+  res.json(tenancy);
+};
+
 // ? Demo Flow
 // * @desc      Route to create a new Tenancy without files attached
 // ! @route     POST /api/tenancies/demo
@@ -878,6 +966,8 @@ export {
   registerHabitatTenancy,
   // Enso
   registerEnsoTenancy,
+  // Ukio
+  registerUkioTenancy,
   // Demo
   registerDemoTenancy,
 };
