@@ -324,6 +324,22 @@ const registerTenantBigDemoRJ2 = async (req, res) => {
   res.status(200).json(tenant);
 };
 
+// ? Big Demo Flow
+// * @desc      Route to register new tenant debit card details at RJ3
+// ! @route     POST /api/tenants/stripe/bigdemo/:randomID
+const registerTenantBigDemoRJ3 = async (req, res) => {
+  const { isAcceptedGC, isCardAccepted, randomID } = req.body;
+
+  let tenant = await Tenant.findOneAndUpdate(
+    { randomID },
+    {
+      isAcceptedGC,
+      isCardAccepted,
+    }
+  );
+  res.status(200).json(tenant);
+};
+
 export {
   // Regular
   registerTenantRJ2,
@@ -346,4 +362,5 @@ export {
   tenantTryPayment,
   // Big Demo
   registerTenantBigDemoRJ2,
+  registerTenantBigDemoRJ3,
 };

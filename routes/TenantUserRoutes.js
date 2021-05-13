@@ -27,6 +27,7 @@ import {
   tenantTryPayment,
   // Big Demo
   registerTenantBigDemoRJ2,
+  registerTenantBigDemoRJ3,
 } from "../controllers/TenantUserController.js";
 
 const __dirname = path.resolve();
@@ -72,4 +73,5 @@ router
 
 // Big Demo
 router.route("/tenant/bigdemo/:randomID").post(registerTenantBigDemoRJ2);
+router.route("/stripe/bigdemo/:randomID").post(registerTenantBigDemoRJ3);
 export default router;
