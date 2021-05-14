@@ -19,7 +19,6 @@ import {
   // ! Badi Flow
   registerBadiTenancy,
   updateBadiSingleTenancy,
-
   // ! StarCity Flow
   registerStarcityTenancy,
   // ! Habitat
@@ -28,6 +27,8 @@ import {
   registerEnsoTenancy,
   // ! Ukio
   registerUkioTenancy,
+  // ! RoomsWeRent
+  registerRoomsWeRentTenancy,
   // ! Demo
   registerDemoTenancy,
 } from "../controllers/TenancyController.js";
@@ -85,6 +86,9 @@ router.route("/enso").post(registerEnsoTenancy);
 
 // Ukio Routes
 router.route("/ukio").post(registerUkioTenancy);
+
+// RoomsWeRent Routes
+router.route("/roomswerent").post(registerRoomsWeRentTenancy);
 
 // Demo routes
 router.route("/demo").post(registerDemoTenancy);
