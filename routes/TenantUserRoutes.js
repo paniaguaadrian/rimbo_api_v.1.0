@@ -25,6 +25,8 @@ import {
   // StarCity
   addFilesTenantSC,
   tenantTryPayment,
+  // Ukio
+  addFilesTenantUkio,
   // Big Demo
   registerTenantBigDemoRJ2,
   registerTenantBigDemoRJ3,
@@ -70,6 +72,11 @@ router.route("/enso").get(getAllEnsoTenants).post(registerEnsoTenants);
 router
   .route("/tenant/:randomID/starcity/upload")
   .post(upload.any(), addFilesTenantSC);
+
+// Ukio Product
+router
+  .route("/tenant/:randomID/ukio/upload")
+  .post(upload.any(), addFilesTenantUkio);
 
 // Big Demo
 router.route("/tenant/bigdemo/:randomID").post(registerTenantBigDemoRJ2);

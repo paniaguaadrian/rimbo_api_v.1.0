@@ -288,6 +288,77 @@ const tenantTryPayment = async (req, res) => {
   res.status(200).json(tenant);
 };
 
+// ? Ukio Flow
+// * @desc      Route to upload images and files of tenant at F1SC
+// ! @route     POST /api/tenants/tenant/:randomID/ukio/upload
+const addFilesTenantUkio = async (req, res) => {
+  const { randomID } = req.body;
+
+  const DF = req.files[0];
+  const DB = req.files[1];
+  const LP = req.files[2];
+
+  // We have 3 documents:
+  if (DF && DB && LP) {
+    const DFUrl = DF.linkUrl;
+    const DBUrl = DB.linkUrl;
+    const LPUrl = LP.linkUrl;
+    let tenant = await Tenant.findOneAndUpdate(
+      { randomID },
+      {
+        documentImageFront: DFUrl,
+        documentImageBack: DBUrl,
+        lastPayslip: LPUrl,
+      }
+    );
+    console.log("It works 1 ?");
+    res.status(200).json(tenant);
+  }
+
+  // We have Front and Payslip
+  if (DF && LP && !DB) {
+    const DFUrl = DF.linkUrl;
+    const LPUrl = LP.linkUrl;
+    let tenant = await Tenant.findOneAndUpdate(
+      { randomID },
+      {
+        documentImageFront: DFUrl,
+        lastPayslip: LPUrl,
+      }
+    );
+    console.log("It works 2 ?");
+    res.status(200).json(tenant);
+  }
+
+  // We have Front an Back
+  if (DF && DB && !LP) {
+    const DFUrl = DF.linkUrl;
+    const DBUrl = DB.linkUrl;
+    let tenant = await Tenant.findOneAndUpdate(
+      { randomID },
+      {
+        documentImageFront: DFUrl,
+        documentImageBack: DBUrl,
+      }
+    );
+    console.log("It works 3 ?");
+    res.status(200).json(tenant);
+  }
+
+  // We have Front
+  if (DF && !DB && !LP) {
+    const DFUrl = DF.linkUrl;
+    let tenant = await Tenant.findOneAndUpdate(
+      { randomID },
+      {
+        documentImageFront: DFUrl,
+      }
+    );
+    console.log("It works 4 ?");
+    res.status(200).json(tenant);
+  }
+};
+
 // ? Big Demo Flow
 // * @desc      Route to register new information of tenant at RJ2
 // ! @route     POST /api/tenants/tenant/bigdemo/:randomID
@@ -360,6 +431,8 @@ export {
   // StarCity
   addFilesTenantSC,
   tenantTryPayment,
+  // Ukio
+  addFilesTenantUkio,
   // Big Demo
   registerTenantBigDemoRJ2,
   registerTenantBigDemoRJ3,

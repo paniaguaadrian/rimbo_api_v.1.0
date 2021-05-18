@@ -188,7 +188,6 @@ const registerTenancy = async (req, res) => {
   }
 
   // Create Property
-  // Buscarla por ID para que no se repita
   const property = await Property.create({
     fullRentalAddress,
     rentalAddress,
@@ -574,11 +573,6 @@ const registerStarcityTenancy = async (req, res) => {
     agent = agent[0];
   }
 
-  // const agent = await Agent.create({
-  //   agencyName,
-  //   isAgentAccepted,
-  // });
-
   // Create Property
   const property = await Property.create({
     building,
@@ -656,11 +650,6 @@ const registerHabitatTenancy = async (req, res) => {
   } else {
     agent = agent[0];
   }
-
-  // const agent = await Agent.create({
-  //   agencyName,
-  //   isAgentAccepted,
-  // });
 
   // Create Property
   const property = await Property.create({
@@ -744,11 +733,6 @@ const registerEnsoTenancy = async (req, res) => {
     agent = agent[0];
   }
 
-  // const agent = await Agent.create({
-  //   agencyName,
-  //   isAgentAccepted,
-  // });
-
   // Create Property
   const property = await Property.create({
     rentalAddress,
@@ -791,10 +775,13 @@ const registerUkioTenancy = async (req, res) => {
 
     // Agency
     agencyName,
+    agencyContactPerson,
     isAgentAccepted,
 
     // Property
     rentalAddress,
+    rentalPostalCode,
+    rentalCity,
     room,
 
     // Tenancy
@@ -826,20 +813,18 @@ const registerUkioTenancy = async (req, res) => {
   if (agent.length === 0) {
     agent = await Agent.create({
       agencyName,
+      agencyContactPerson,
       isAgentAccepted,
     });
   } else {
     agent = agent[0];
   }
 
-  // const agent = await Agent.create({
-  //   agencyName,
-  //   isAgentAccepted,
-  // });
-
   // Create Property
   const property = await Property.create({
     rentalAddress,
+    rentalPostalCode,
+    rentalCity,
     room,
   });
 
@@ -1000,11 +985,6 @@ const registerDemoTenancy = async (req, res) => {
   } else {
     agent = agent[0];
   }
-
-  // const agent = await Agent.create({
-  //   agencyName,
-  //   isAgentAccepted,
-  // });
 
   // Create Property
   const property = await Property.create({
