@@ -311,7 +311,6 @@ const addFilesTenantUkio = async (req, res) => {
         lastPayslip: LPUrl,
       }
     );
-    console.log("It works 1 ?");
     res.status(200).json(tenant);
   }
 
@@ -326,7 +325,6 @@ const addFilesTenantUkio = async (req, res) => {
         lastPayslip: LPUrl,
       }
     );
-    console.log("It works 2 ?");
     res.status(200).json(tenant);
   }
 
@@ -341,7 +339,6 @@ const addFilesTenantUkio = async (req, res) => {
         documentImageBack: DBUrl,
       }
     );
-    console.log("It works 3 ?");
     res.status(200).json(tenant);
   }
 
@@ -354,7 +351,6 @@ const addFilesTenantUkio = async (req, res) => {
         documentImageFront: DFUrl,
       }
     );
-    console.log("It works 4 ?");
     res.status(200).json(tenant);
   }
 };
