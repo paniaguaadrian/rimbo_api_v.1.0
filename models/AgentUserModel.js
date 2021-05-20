@@ -6,6 +6,7 @@ const agentSchema = new Schema(
     agencyName: { type: String },
     agencyContactPerson: { type: String },
     agencyEmailPerson: { type: String },
+    agencyPersonPassword: { type: String },
     agencyPhonePerson: { type: String },
     isAgentAccepted: { type: Boolean, default: false },
     documentSepa: { type: String },
