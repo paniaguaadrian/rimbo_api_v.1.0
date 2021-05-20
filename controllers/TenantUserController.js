@@ -115,28 +115,15 @@ const registerTenantRJ2Upload = async (req, res) => {
 
   const DF = req.files[0];
   const DB = req.files[1];
-  const DCA = req.files[2];
-
-  // ? This is for Badi Flow
-  // const LP = req.files[2];
-  // const PP = req.files[3];
 
   const DFUrl = DF.linkUrl;
   const DBUrl = DB.linkUrl;
-  const DCAUrl = DCA.linkUrl;
-
-  // ? This is for Badi Flow
-  // const LPUrl = LP.linkUrl;
-  // const PPUrl = PP.linkUrl;
 
   let tenant = await Tenant.findOneAndUpdate(
     { randomID },
     {
       documentImageFront: DFUrl,
       documentImageBack: DBUrl,
-      documentConfirmAddress: DCAUrl,
-      // lastPayslip: LPUrl,
-      // previousPayslip: PPUrl,
     }
   );
   res.status(200).json(tenant);
