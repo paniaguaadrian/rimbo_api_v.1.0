@@ -4,6 +4,7 @@ import express from "express";
 import {
   registerAgent,
   getAllAgents,
+  getOneAgent,
   // Sign up and Sign in for Agent Dashboard
   signin,
   signup,
@@ -13,6 +14,7 @@ const router = express.Router();
 
 router.route("/").post(registerAgent).get(getAllAgents);
 
+router.route("/agent/:_id").get(getOneAgent);
 router.route("/signin").post(signin);
 router.route("/signup").post(signup);
 

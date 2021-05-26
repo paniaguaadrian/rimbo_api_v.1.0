@@ -84,6 +84,8 @@ const signup = async (req, res) => {
     confirmPassword,
     firstName,
     lastName,
+    agencyPhonePerson,
+    agencyName,
   } = req.body;
 
   try {
@@ -100,6 +102,8 @@ const signup = async (req, res) => {
       agencyEmailPerson,
       agencyPersonPassword: hashedPassword,
       agencyContactPerson: `${firstName} ${lastName}`,
+      agencyPhonePerson,
+      agencyName,
     });
 
     const token = jwt.sign(
@@ -114,4 +118,23 @@ const signup = async (req, res) => {
   }
 };
 
-export { registerAgent, getAllAgents, signin, signup };
+// * @desc      Route to a single Agent
+// ! @route     post /api/agents/agent/:_id
+const getOneAgent = async (req, res) => {
+  const { _id } = req.params;
+  try {
+    const agent = await await Agent.findOne({ _id })
+      .populate("tenancy")
+      .populate("tenant")
+      .populate("tenantTwo")
+      .populate("tenantThree")
+      .populate("tenantFour")
+      .populate("property");
+
+    res.status(200).json(agent);
+  } catch (error) {
+    console.log("There is an error here: " + error);
+  }
+};
+
+export { registerAgent, getAllAgents, getOneAgent, signin, signup };

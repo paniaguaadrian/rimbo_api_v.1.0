@@ -31,6 +31,8 @@ import {
   registerRoomsWeRentTenancy,
   // ! Demo
   registerDemoTenancy,
+  // ! PM Dashboard
+  registerNewTenancy,
 } from "../controllers/TenancyController.js";
 
 const __dirname = path.resolve();
@@ -90,5 +92,8 @@ router.route("/ukio").post(registerUkioTenancy);
 // RoomsWeRent Routes
 router.route("/roomswerent").post(registerRoomsWeRentTenancy);
 
-// Demo routes
+// Demo Routes
 router.route("/demo").post(registerDemoTenancy);
+
+// PM Dashboard Routes
+router.route("/newtenancy").post(registerNewTenancy);

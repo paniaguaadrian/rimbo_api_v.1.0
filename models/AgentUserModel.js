@@ -12,6 +12,9 @@ const agentSchema = new Schema(
     documentSepa: { type: String },
     // TODO: Variable  language
     agencyLanguage: { type: String },
+    tenancy: { type: Schema.Types.ObjectId, ref: "Tenancy" },
+    tenant: { type: Schema.Types.ObjectId, ref: "Tenant" },
+    property: { type: Schema.Types.ObjectId, ref: "Property" },
   },
   { timestamps: true }
 );
