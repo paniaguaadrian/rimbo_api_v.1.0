@@ -29,6 +29,8 @@ import {
   registerUkioTenancy,
   // ! RoomsWeRent
   registerRoomsWeRentTenancy,
+  // ! aTemporal
+  registerAtemporalTenancy,
   // ! Demo
   registerDemoTenancy,
   // ! PM Dashboard
@@ -91,6 +93,9 @@ router.route("/ukio").post(registerUkioTenancy);
 
 // RoomsWeRent Routes
 router.route("/roomswerent").post(registerRoomsWeRentTenancy);
+
+// aTemporal Routes
+router.route("/atemporal").post(registerAtemporalTenancy);
 
 // Demo Routes
 router.route("/demo").post(registerDemoTenancy);
