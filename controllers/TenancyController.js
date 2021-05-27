@@ -978,7 +978,7 @@ const registerAtemporalTenancy = async (req, res) => {
   });
 
   // Create Agency
-  let agent = await Agent.find({ agencyName });
+  let agent = await Agent.find({ agencyEmailPerson });
   if (agent.length === 0) {
     agent = await Agent.create({
       agencyName,
@@ -1062,7 +1062,7 @@ const registerDemoTenancy = async (req, res) => {
   });
 
   // Create Agency
-  let agent = await Agent.find({ agencyName });
+  let agent = await Agent.find({ agencyEmailPerson });
   if (agent.length === 0) {
     agent = await Agent.create({
       agencyName,
