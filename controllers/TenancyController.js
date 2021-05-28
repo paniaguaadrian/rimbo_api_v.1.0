@@ -1062,16 +1062,11 @@ const registerDemoTenancy = async (req, res) => {
   });
 
   // Create Agency
-  let agent = await Agent.find({ agencyEmailPerson });
-  if (agent.length === 0) {
-    agent = await Agent.create({
-      agencyName,
-      agencyEmailPerson,
-      isAgentAccepted,
-    });
-  } else {
-    agent = agent[0];
-  }
+  const agent = await Agent.create({
+    agencyName,
+    agencyEmailPerson,
+    isAgentAccepted,
+  });
 
   // Create Property
   const property = await Property.create({
@@ -1091,6 +1086,251 @@ const registerDemoTenancy = async (req, res) => {
     property: property._id,
     tenant: tenant._id,
   });
+  res.json(tenancy);
+};
+
+// ? BigDemo Flow
+// * @desc      Route for RJ1 form to create a new Tenancy
+// ! @route     POST /api/tenancies/bigdemo
+const registerBigDemoTenancy = async (req, res) => {
+  const {
+    // tenant
+    tenantsName,
+    tenantsEmail,
+    tenantsPhone,
+    propertyManagerName,
+    randomID,
+    stageOne,
+
+    // tenantTwo
+    tenantsNameTwo,
+    tenantsEmailTwo,
+    tenantsPhoneTwo,
+    randomIDTwo,
+
+    // tenantThree
+    tenantsNameThree,
+    tenantsEmailThree,
+    tenantsPhoneThree,
+    randomIDThree,
+
+    // tenantFour
+    tenantsNameFour,
+    tenantsEmailFour,
+    tenantsPhoneFour,
+    randomIDFour,
+
+    // agency agent
+    agencyName,
+    agencyEmailPerson,
+    agencyContactPerson,
+    agencyPhonePerson,
+    isAgentAccepted,
+    agencyLanguage,
+
+    // property apartment
+    fullRentalAddress,
+    rentalAddress,
+    rentalAddressSecond,
+    rentalCity,
+    rentalPostalCode,
+    ownerType,
+
+    // Tenancy
+    rentAmount,
+    rentDuration,
+    RentStartDate,
+    RentEndDate,
+    product,
+    tenancyID,
+
+    // landlord
+    landlordName,
+    landlordEmail,
+    landlordPhone,
+
+    // property manager
+    PMName,
+    PMEmail,
+    PMPhone,
+  } = req.body;
+
+  // Create Tenant
+  const tenant = await Tenant.create({
+    tenantsName,
+    tenantsEmail,
+    tenantsPhone,
+    propertyManagerName,
+    randomID,
+    tenancyID,
+    stageOne,
+  });
+
+  let tenantTwo = "";
+  if (tenantsNameTwo != "" && tenantsEmailTwo != "" && tenantsPhoneTwo != "") {
+    tenantTwo = await Tenant.create({
+      tenantsName: tenantsNameTwo,
+      tenantsEmail: tenantsEmailTwo,
+      tenantsPhone: tenantsPhoneTwo,
+      propertyManagerName,
+      randomID: randomIDTwo,
+      tenancyID,
+      stageOne,
+    });
+  }
+
+  let tenantThree = "";
+  if (
+    tenantsNameThree != "" &&
+    tenantsEmailThree != "" &&
+    tenantsPhoneThree != ""
+  ) {
+    tenantThree = await Tenant.create({
+      tenantsName: tenantsNameThree,
+      tenantsEmail: tenantsEmailThree,
+      tenantsPhone: tenantsPhoneThree,
+      propertyManagerName,
+      randomID: randomIDThree,
+      tenancyID,
+      stageOne,
+    });
+  }
+
+  let tenantFour = "";
+  if (
+    tenantsNameFour != "" &&
+    tenantsEmailFour != "" &&
+    tenantsPhoneFour != ""
+  ) {
+    tenantFour = await Tenant.create({
+      tenantsName: tenantsNameFour,
+      tenantsEmail: tenantsEmailFour,
+      tenantsPhone: tenantsPhoneFour,
+      propertyManagerName,
+      randomID: randomIDFour,
+      tenancyID,
+      stageOne,
+    });
+  }
+
+  // Create Landlord
+  let landlord = await Landlord.find({ landlordEmail });
+  if (landlord.length === 0) {
+    landlord = await Landlord.create({
+      landlordName,
+      landlordEmail,
+      landlordPhone,
+    });
+  } else {
+    landlord = landlord[0];
+  }
+
+  // Create PM
+  let pm = await PM.find({ PMName });
+  if (pm.length === 0) {
+    pm = await PM.create({
+      PMName,
+      PMEmail,
+      PMPhone,
+    });
+  } else {
+    pm = pm[0];
+  }
+
+  // Create Agent
+  const agent = await Agent.create({
+    agencyName,
+    agencyEmailPerson,
+    agencyContactPerson,
+    agencyPhonePerson,
+    isAgentAccepted,
+    agencyLanguage,
+  });
+
+  // Create Property
+  const property = await Property.create({
+    fullRentalAddress,
+    rentalAddress,
+    rentalAddressSecond,
+    rentalCity,
+    rentalPostalCode,
+    ownerType,
+  });
+
+  // Create Tenancy
+  const tenancyData = {
+    rentAmount,
+    rentDuration,
+    RentStartDate,
+    RentEndDate,
+    product,
+    tenancyID,
+    agent: agent._id,
+    property: property._id,
+    landlord: landlord._id,
+    tenant: tenant._id,
+    pm: pm._id,
+  };
+
+  const tenancyDataTwo = {
+    rentAmount,
+    rentDuration,
+    RentStartDate,
+    RentEndDate,
+    product,
+    tenancyID,
+    agent: agent._id,
+    property: property._id,
+    landlord: landlord._id,
+    tenant: tenant._id,
+    tenantTwo: tenantTwo._id,
+    pm: pm._id,
+  };
+
+  const tenancyDataThree = {
+    rentAmount,
+    rentDuration,
+    RentStartDate,
+    RentEndDate,
+    product,
+    tenancyID,
+    agent: agent._id,
+    property: property._id,
+    landlord: landlord._id,
+    tenant: tenant._id,
+    tenantTwo: tenantTwo._id,
+    tenantThree: tenantThree._id,
+    pm: pm._id,
+  };
+
+  const tenancyDataFour = {
+    rentAmount,
+    rentDuration,
+    RentStartDate,
+    RentEndDate,
+    product,
+    tenancyID,
+    agent: agent._id,
+    property: property._id,
+    landlord: landlord._id,
+    tenant: tenant._id,
+    tenantTwo: tenantTwo._id,
+    tenantThree: tenantThree._id,
+    tenantFour: tenantFour._id,
+    pm: pm._id,
+  };
+
+  let tenancy;
+  if (tenantTwo === "" && tenantThree === "") {
+    tenancy = await Tenancy.create(tenancyData);
+  } else if (tenantTwo != "" && tenantThree === "") {
+    tenancy = await Tenancy.create(tenancyDataTwo);
+  } else if (tenantThree != "" && tenantTwo != "" && tenantFour === "") {
+    tenancy = await Tenancy.create(tenancyDataThree);
+  } else if (tenantFour != "" && tenantThree != "" && tenantTwo != "") {
+    tenancy = await Tenancy.create(tenancyDataFour);
+  }
+
   res.json(tenancy);
 };
 
@@ -1351,6 +1591,8 @@ export {
   registerAtemporalTenancy,
   // Demo
   registerDemoTenancy,
+  // BigDemo
+  registerBigDemoTenancy,
   // PM Dashboard
   registerNewTenancy,
 };

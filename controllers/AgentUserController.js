@@ -50,7 +50,9 @@ const signin = async (req, res) => {
   try {
     const existingAgent = await Agent.findOne({ agencyEmailPerson });
     if (!existingAgent)
-      return res.status(404).json({ message: "Agent doesn't exist." });
+      return res
+        .status(404)
+        .json({ message: "Agent doesn't exist. You must sign up." });
 
     const isPasswordCorrect = await bcrypt.compare(
       agencyPersonPassword,
@@ -71,7 +73,7 @@ const signin = async (req, res) => {
 
     res.status(200).json({ result: existingAgent, token });
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json({ message: "Something went wrong" + error });
   }
 };
 
@@ -91,10 +93,12 @@ const signup = async (req, res) => {
   try {
     const existingAgent = await Agent.findOne({ agencyEmailPerson });
     if (existingAgent)
-      return res.status(400).json({ message: "Agent already exist." });
+      return res
+        .status(400)
+        .json({ message: "Agent already exist.", isExistingAgent: true });
 
     if (agencyPersonPassword !== confirmPassword)
-      return res.status(400).json({ message: "Password don't match" });
+      return res.status(400).json({ message: "Passwords doesn't match" });
 
     const hashedPassword = await bcrypt.hash(agencyPersonPassword, 12);
 
@@ -114,7 +118,7 @@ const signup = async (req, res) => {
 
     res.status(200).json({ result, token });
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json({ message: "Something went wrong" + error });
   }
 };
 
@@ -123,7 +127,7 @@ const signup = async (req, res) => {
 const getOneAgent = async (req, res) => {
   const { _id } = req.params;
   try {
-    const agent = await await Agent.findOne({ _id })
+    const agent = await Agent.findOne({ _id })
       .populate("tenancy")
       .populate("tenant")
       .populate("tenantTwo")

@@ -33,6 +33,8 @@ import {
   registerAtemporalTenancy,
   // ! Demo
   registerDemoTenancy,
+  // ! BigDemo
+  registerBigDemoTenancy,
   // ! PM Dashboard
   registerNewTenancy,
 } from "../controllers/TenancyController.js";
@@ -99,6 +101,9 @@ router.route("/atemporal").post(registerAtemporalTenancy);
 
 // Demo Routes
 router.route("/demo").post(registerDemoTenancy);
+
+// BigDemo Routes
+router.route("/bigdemo").post(registerBigDemoTenancy);
 
 // PM Dashboard Routes
 router.route("/newtenancy").post(registerNewTenancy);
