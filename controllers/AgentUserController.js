@@ -48,30 +48,37 @@ const signin = async (req, res) => {
   const { agencyEmailPerson, agencyPersonPassword } = req.body;
 
   try {
+    // TODO: Send errors to front end (agencyEmailPerson exists on the DB?)
     const existingAgent = await Agent.findOne({ agencyEmailPerson });
-    if (!existingAgent)
-      return res
-        .status(404)
-        .json({ message: "Agent doesn't exist. You must sign up." });
+    if (existingAgent.isAgentValidated === true) {
+      if (!existingAgent)
+        return res
+          .status(404)
+          .json({ message: "Agent doesn't exist. You must sign up." });
 
-    const isPasswordCorrect = await bcrypt.compare(
-      agencyPersonPassword,
-      existingAgent.agencyPersonPassword
-    );
+      const isPasswordCorrect = await bcrypt.compare(
+        agencyPersonPassword,
+        existingAgent.agencyPersonPassword
+      );
 
-    if (!isPasswordCorrect)
-      return res.status(404).json({ message: "Invalid credentials" });
+      // TODO: Send errors to front end (agencyEmailPerson exists on the DB?)
+      if (!isPasswordCorrect)
+        return res.status(404).json({ message: "Invalid credentials" });
 
-    const token = jwt.sign(
-      {
-        agencyEmailPerson: existingAgent.agencyEmailPerson,
-        id: existingAgent._id,
-      },
-      process.env.SECRET_TOKEN,
-      { expiresIn: "1h" }
-    );
+      const token = jwt.sign(
+        {
+          agencyEmailPerson: existingAgent.agencyEmailPerson,
+          id: existingAgent._id,
+        },
+        process.env.SECRET_TOKEN,
+        { expiresIn: "1h" }
+      );
 
-    res.status(200).json({ result: existingAgent, token });
+      res.status(200).json({ result: existingAgent, token });
+    } else {
+      // TODO: Send errors to front end (agencyEmailPerson exists on the DB?)
+      res.status(404).json({ message: "Agent is not authorized yet by Rimbo" });
+    }
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" + error });
   }
@@ -91,6 +98,7 @@ const signup = async (req, res) => {
   } = req.body;
 
   try {
+    // TODO: Send errors to front end (agencyEmailPerson exists on the DB?)
     const existingAgent = await Agent.findOne({ agencyEmailPerson });
     if (existingAgent)
       return res

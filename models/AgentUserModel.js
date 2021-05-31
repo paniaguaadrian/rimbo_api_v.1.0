@@ -9,8 +9,8 @@ const agentSchema = new Schema(
     agencyPersonPassword: { type: String },
     agencyPhonePerson: { type: String },
     isAgentAccepted: { type: Boolean, default: false },
+    isAgentValidated: { type: Boolean, default: false },
     documentSepa: { type: String },
-    // TODO: Variable  language
     agencyLanguage: { type: String },
     tenancy: { type: Schema.Types.ObjectId, ref: "Tenancy" },
     tenant: { type: Schema.Types.ObjectId, ref: "Tenant" },
