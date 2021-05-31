@@ -50,6 +50,8 @@ const signin = async (req, res) => {
   try {
     // TODO: Send errors to front end (agencyEmailPerson exists on the DB?)
     const existingAgent = await Agent.findOne({ agencyEmailPerson });
+
+    // Condition to know if the agent is validated by rimbo
     if (existingAgent.isAgentValidated === true) {
       if (!existingAgent)
         return res
@@ -131,7 +133,7 @@ const signup = async (req, res) => {
 };
 
 // * @desc      Route to a single Agent
-// ! @route     post /api/agents/agent/:_id
+// ! @route     get /api/agents/agent/:_id
 const getOneAgent = async (req, res) => {
   const { _id } = req.params;
   try {
@@ -149,4 +151,39 @@ const getOneAgent = async (req, res) => {
   }
 };
 
-export { registerAgent, getAllAgents, getOneAgent, signin, signup };
+// * @desc      Route to a single Agent
+// ! @route     get /api/agents/agent
+const getOneAgentByEmail = async (req, res) => {
+  let agencyEmailPerson = req.query.agencyEmailPerson;
+
+  try {
+    const agent = await Agent.findOne({ agencyEmailPerson });
+
+    res.status(200).json(agent);
+  } catch (error) {
+    console.log("There is an error here: " + error);
+  }
+};
+
+// * @desc      Route to accept an Agent by Rimbo
+// ! @route     POST /api/agents/agent/approved
+const acceptAgentRimbo = async (req, res) => {
+  const { agencyEmailPerson, isAgentValidated } = req.body;
+
+  let agent = await Agent.findOneAndUpdate(
+    { agencyEmailPerson },
+    { isAgentValidated }
+  );
+
+  res.status(200).json(agent);
+};
+
+export {
+  registerAgent,
+  getAllAgents,
+  getOneAgent,
+  getOneAgentByEmail,
+  acceptAgentRimbo,
+  signin,
+  signup,
+};
