@@ -10,6 +10,7 @@ const tenancySchema = new Schema(
     rentEndDate: { type: Date },
     product: { type: String },
     tenancyID: { type: String },
+    bookingID: { type: String },
     pmAnex: { type: String },
     acceptanceCriteria: { type: String },
     isAllTenantsAccepted: { type: Boolean, default: false },

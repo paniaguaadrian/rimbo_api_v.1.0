@@ -1563,6 +1563,57 @@ const registerNewTenancy = async (req, res) => {
   res.json(tenancy);
 };
 
+// ? Short-Term Flow
+// * @desc      Route to create a new Tenancy
+// ! @route     POST /api/tenancies/short-term
+const registerTenancyPMS = async (req, res) => {
+  const {
+    // Agency
+    agencyName,
+    // Tenancy
+    rentAmount,
+    rentStartDate,
+    rentEndDate,
+    bookingID,
+    // Tenant
+    tenantsFirstName,
+    tenantsLastName,
+    tenantsEmail,
+    tenantsPhone,
+  } = req.body;
+
+  // Create Tenant
+  const tenant = await Tenant.create({
+    tenantsFirstName,
+    tenantsLastName,
+    tenantsEmail,
+    tenantsPhone,
+    bookingID,
+  });
+
+  // Create Agency
+  let agent = await Agent.find({ agencyName });
+  if (agent.length === 0) {
+    agent = await Agent.create({
+      agencyName,
+    });
+  } else {
+    agent = agent[0];
+  }
+
+  // Create Tenancy
+  const tenancy = await Tenancy.create({
+    rentAmount,
+    rentStartDate,
+    rentEndDate,
+    bookingID,
+
+    agent: agent._id,
+    tenant: tenant._id,
+  });
+  res.json(tenancy);
+};
+
 export {
   // Regular
   registerTenancy,
@@ -1595,4 +1646,6 @@ export {
   registerBigDemoTenancy,
   // PM Dashboard
   registerNewTenancy,
+  // Short-Term
+  registerTenancyPMS,
 };

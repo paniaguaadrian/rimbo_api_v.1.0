@@ -97,6 +97,7 @@ const signup = async (req, res) => {
     lastName,
     agencyPhonePerson,
     agencyName,
+    agencyLanguage,
   } = req.body;
 
   try {
@@ -118,6 +119,7 @@ const signup = async (req, res) => {
       agencyContactPerson: `${firstName} ${lastName}`,
       agencyPhonePerson,
       agencyName,
+      agencyLanguage,
     });
 
     const token = jwt.sign(

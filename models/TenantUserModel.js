@@ -18,6 +18,7 @@ const TenantSchema = new Schema(
     isCardAccepted: { type: Boolean, default: false },
     randomID: { type: String },
     tenancyID: { type: String },
+    bookingID: { type: String },
     monthlyNetIncome: { type: Number },
     jobType: { type: String },
     documentType: { type: String },

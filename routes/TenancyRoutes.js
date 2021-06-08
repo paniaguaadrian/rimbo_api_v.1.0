@@ -37,6 +37,8 @@ import {
   registerBigDemoTenancy,
   // ! PM Dashboard
   registerNewTenancy,
+  // ! Short-Term
+  registerTenancyPMS,
 } from "../controllers/TenancyController.js";
 
 const __dirname = path.resolve();
@@ -107,3 +109,6 @@ router.route("/bigdemo").post(registerBigDemoTenancy);
 
 // PM Dashboard Routes
 router.route("/newtenancy").post(registerNewTenancy);
+
+// Short-Term
+router.route("/short-term").post(registerTenancyPMS);
