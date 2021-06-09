@@ -1614,6 +1614,28 @@ const registerTenancyPMS = async (req, res) => {
   res.json(tenancy);
 };
 
+// ? Short-Term Flow
+// * @desc      Route to get a single Tenancy by bookingID
+// ! @route     GET /api/tenancies/tenancy/:bookingID
+const getTenancyByBookingID = async (req, res) => {
+  try {
+    const bookingID = req.originalUrl.slice(34);
+
+    const thisTenancy = await Tenancy.findOne({ bookingID })
+      .populate("landlord")
+      .populate("tenant")
+      .populate("tenantTwo")
+      .populate("tenantThree")
+      .populate("tenantFour")
+      .populate("agent")
+      .populate("pm")
+      .populate("property");
+    res.status(200).json(thisTenancy);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   // Regular
   registerTenancy,
@@ -1648,4 +1670,5 @@ export {
   registerNewTenancy,
   // Short-Term
   registerTenancyPMS,
+  getTenancyByBookingID,
 };

@@ -39,6 +39,7 @@ import {
   registerNewTenancy,
   // ! Short-Term
   registerTenancyPMS,
+  getTenancyByBookingID,
 } from "../controllers/TenancyController.js";
 
 const __dirname = path.resolve();
@@ -112,3 +113,4 @@ router.route("/newtenancy").post(registerNewTenancy);
 
 // Short-Term
 router.route("/short-term").post(registerTenancyPMS);
+router.route("/tenancy/short-term/:bookingID").get(getTenancyByBookingID);

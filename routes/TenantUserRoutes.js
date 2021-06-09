@@ -30,6 +30,8 @@ import {
   // Big Demo
   registerTenantBigDemoRJ2,
   registerTenantBigDemoRJ3,
+  // Short-Term
+  getTenantByBookingID,
 } from "../controllers/TenantUserController.js";
 
 const __dirname = path.resolve();
@@ -81,4 +83,8 @@ router
 // Big Demo
 router.route("/tenant/bigdemo/:randomID").post(registerTenantBigDemoRJ2);
 router.route("/stripe/bigdemo/:randomID").post(registerTenantBigDemoRJ3);
+
+// Short-Term
+router.route("/tenant/short-term/:bookingID").get(getTenantByBookingID);
+
 export default router;

@@ -394,6 +394,20 @@ const registerTenantBigDemoRJ3 = async (req, res) => {
   res.status(200).json(tenant);
 };
 
+// ? Short-Term Flow
+// * @desc      Route for RJ3 to get a single Tenant by bookingID
+// ! @route     GET /api/tenants/tenant/:bookingID
+const getTenantByBookingID = async (req, res) => {
+  try {
+    const bookingID = req.originalUrl.slice(31);
+
+    const thisTenant = await Tenant.findOne({ bookingID });
+    res.status(200).json(thisTenant);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   // Regular
   registerTenantRJ2,
@@ -419,4 +433,6 @@ export {
   // Big Demo
   registerTenantBigDemoRJ2,
   registerTenantBigDemoRJ3,
+  // Short-Term
+  getTenantByBookingID,
 };
