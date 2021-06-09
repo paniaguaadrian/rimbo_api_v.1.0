@@ -12,6 +12,7 @@ const agentSchema = new Schema(
     isAgentValidated: { type: Boolean, default: false },
     documentSepa: { type: String },
     agencyLanguage: { type: String },
+    agencyEndPoint: { type: String, default: "http://localhost:3000" },
     tenancy: { type: Schema.Types.ObjectId, ref: "Tenancy" },
     tenant: { type: Schema.Types.ObjectId, ref: "Tenant" },
     property: { type: Schema.Types.ObjectId, ref: "Property" },

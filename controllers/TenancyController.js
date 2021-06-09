@@ -1575,6 +1575,7 @@ const registerTenancyPMS = async (req, res) => {
     rentStartDate,
     rentEndDate,
     bookingID,
+    product,
     // Tenant
     tenantsFirstName,
     tenantsLastName,
@@ -1607,6 +1608,7 @@ const registerTenancyPMS = async (req, res) => {
     rentStartDate,
     rentEndDate,
     bookingID,
+    product,
 
     agent: agent._id,
     tenant: tenant._id,
