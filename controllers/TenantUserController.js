@@ -408,6 +408,21 @@ const getTenantByBookingID = async (req, res) => {
   }
 };
 
+// ? Short-Term Flow
+// * @desc      Route to register new tenant debit card details
+// ! @route     POST /api/tenants/stripe/short-term/:bookingID
+const registerTenantCard = async (req, res) => {
+  const { isAcceptedGC, bookingID } = req.body;
+
+  let tenant = await Tenant.findOneAndUpdate(
+    { bookingID },
+    {
+      isAcceptedGC,
+    }
+  );
+  res.status(200).json(tenant);
+};
+
 export {
   // Regular
   registerTenantRJ2,
@@ -435,4 +450,5 @@ export {
   registerTenantBigDemoRJ3,
   // Short-Term
   getTenantByBookingID,
+  registerTenantCard,
 };
