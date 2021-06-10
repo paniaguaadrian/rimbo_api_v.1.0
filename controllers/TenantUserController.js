@@ -412,12 +412,13 @@ const getTenantByBookingID = async (req, res) => {
 // * @desc      Route to register new tenant debit card details
 // ! @route     POST /api/tenants/stripe/short-term/:bookingID
 const registerTenantCard = async (req, res) => {
-  const { isAcceptedGC, bookingID } = req.body;
+  const { isAcceptedGC, cardRegistrationTime, bookingID } = req.body;
 
   let tenant = await Tenant.findOneAndUpdate(
     { bookingID },
     {
       isAcceptedGC,
+      cardRegistrationTime,
     }
   );
   res.status(200).json(tenant);

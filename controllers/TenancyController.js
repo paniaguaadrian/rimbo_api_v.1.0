@@ -1581,6 +1581,10 @@ const registerTenancyPMS = async (req, res) => {
     tenantsLastName,
     tenantsEmail,
     tenantsPhone,
+    // Property
+    rentalAddress,
+    rentalCity,
+    rentalPostalCode,
   } = req.body;
 
   // Create Tenant
@@ -1590,6 +1594,13 @@ const registerTenancyPMS = async (req, res) => {
     tenantsEmail,
     tenantsPhone,
     bookingID,
+  });
+
+  // Create Property
+  const property = await Property.create({
+    rentalAddress,
+    rentalCity,
+    rentalPostalCode,
   });
 
   // Create Agency
@@ -1611,6 +1622,7 @@ const registerTenancyPMS = async (req, res) => {
     product,
 
     agent: agent._id,
+    property: property._id,
     tenant: tenant._id,
   });
   res.json(tenancy);
