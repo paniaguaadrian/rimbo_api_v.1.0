@@ -424,6 +424,21 @@ const registerTenantCard = async (req, res) => {
   res.status(200).json(tenant);
 };
 
+// ? Short-Term Flow
+// * @desc      Route to TEST if our project send the data well and we can store it on DB
+// ! @route     POST /api/tenants/tenant/accepted/:bookingID
+const testUpdateTenant = async (req, res) => {
+  const { tenantRegistered, bookingID } = req.body;
+  console.log(tenantRegistered, bookingID);
+  let tenant = await Tenant.findOneAndUpdate(
+    { bookingID },
+    {
+      tenantRegistered,
+    }
+  );
+  res.status(200).json(tenant);
+};
+
 export {
   // Regular
   registerTenantRJ2,
@@ -452,4 +467,6 @@ export {
   // Short-Term
   getTenantByBookingID,
   registerTenantCard,
+  // Test short-term
+  testUpdateTenant,
 };

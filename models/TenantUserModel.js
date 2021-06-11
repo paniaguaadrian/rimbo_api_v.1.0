@@ -32,6 +32,7 @@ const TenantSchema = new Schema(
     previousPayslip: { type: String },
     isAcceptedPrivacy: { type: Boolean, default: false },
     isAcceptedGC: { type: Boolean, default: false },
+    tenantRegistered: { type: Boolean, default: false },
     cardRegistrationTime: { type: String },
     stageOne: { type: Number, default: 0 },
     //TODO: Variable language

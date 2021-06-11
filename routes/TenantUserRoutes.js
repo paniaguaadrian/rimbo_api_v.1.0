@@ -33,6 +33,8 @@ import {
   // Short-Term
   getTenantByBookingID,
   registerTenantCard,
+  // Test short-term
+  testUpdateTenant,
 } from "../controllers/TenantUserController.js";
 
 const __dirname = path.resolve();
@@ -88,5 +90,7 @@ router.route("/stripe/bigdemo/:randomID").post(registerTenantBigDemoRJ3);
 // Short-Term
 router.route("/tenant/short-term/:bookingID").get(getTenantByBookingID);
 router.route("/stripe/short-term/:bookingID").post(registerTenantCard);
+//  test short-term
+router.route("/tenant/accepted/:bookingID").post(testUpdateTenant);
 
 export default router;
