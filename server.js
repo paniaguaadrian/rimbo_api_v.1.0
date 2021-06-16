@@ -64,6 +64,7 @@ const PORT = process.env.PORT | 8081;
 app.listen(
   PORT,
   console.log(
-    `Server runing in ${process.env.NODE_ENV} port ${PORT}`.yellow.bold
+    `Rimbo API server runing in ${process.env.NODE_ENV} port ${PORT}`.yellow
+      .bold
   )
 );
